@@ -8,6 +8,12 @@
 }
 
 
-body {
+body, button, input {
   font-family: 'Montserrat';
+}
+
+body {
+  max-height: 100vh;
+  min-width: 100vw;
+  overflow: hidden;
 }
