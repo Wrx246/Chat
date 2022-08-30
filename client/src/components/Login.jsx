@@ -1,24 +1,70 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 import st from '../styles/Form.module.scss'
+import { fetchLogin } from '../utils/apiFetch'
+import { useEffect } from 'react'
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log('submit success')
-}
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('chat-user')) {
+      navigate('/')
+    }
+  }, [])
+
+  const SignupSchema = Yup.object().shape({
+    userName: Yup.string()
+      .required('Required'),
+    password: Yup.string()
+      .required("This field is required"),
+  })
+
   return (
     <div className={st.registration}>
-      <form onSubmit={(e) => handleSubmit(e)}>
-          <h1>Login account</h1>
-          <input type='text' placeholder='Username' name='username' />
-          <input type='password' placeholder='Password' name='password' />
-          <button type='submit'>Login in</button>
-          <span>No account? <Link to='/registration'>Sign up</Link></span>
-      </form>
+      <Formik
+        initialValues={{
+          userName: '',
+          password: '',
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={values => fetchLogin(values, navigate)}
+      >
+        {({ errors, touched, }) => (
+          <Form>
+            <h1>Registration</h1>
+            <div>
+              <Field name="userName" placeholder='Username' />
+              {errors.userName && touched.userName ? (
+                <div className={st.registration_error}>{errors.userName}</div>
+              ) : null}
+            </div>
+
+            <div>
+              <Field name="password" type="password" placeholder='Password' />
+              {errors.password && touched.password ?
+                <div className={st.registration_error}>{errors.password}</div> : null}
+            </div>
+
+            <button type="submit">Login in</button>
+            <span>No account? <Link to='/registration'>Sign up</Link></span>
+          </Form>
+        )}
+      </Formik>
     </div>
   )
 }
 
 export default Login;
+
+
+{/* <form onSubmit={(e) => handleSubmit(e)}>
+          <h1>Login account</h1>
+          <input type='text' placeholder='Username' name='username' />
+          <input type='password' placeholder='Password' name='password' />
+          <button type='submit'>Login in</button>
+          <span>No account? <Link to='/registration'>Sign up</Link></span>
+      </form> */}

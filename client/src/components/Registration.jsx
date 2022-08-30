@@ -1,12 +1,19 @@
-import React from 'react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import st from '../styles/Form.module.scss'
+import { fetchRegistration } from '../utils/apiFetch';
 
 
 const Registration = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('chat-user')) {
+      navigate('/')
+    }
+  }, [])
 
   const SignupSchema = Yup.object().shape({
     userName: Yup.string()
@@ -15,9 +22,9 @@ const Registration = () => {
       .required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string()
-    .min(5, 'minimum 5 characters')
-    .max(20, 'maximum 20 characters')
-    .required("This field is required"),
+      .min(5, 'minimum 5 characters')
+      .max(20, 'maximum 20 characters')
+      .required("This field is required"),
     changepassword: Yup.string().when("password", {
       is: val => (val && val.length > 0 ? true : false),
       then: Yup.string().oneOf(
@@ -26,7 +33,6 @@ const Registration = () => {
       )
     })
   })
-
 
 
   return (
@@ -39,9 +45,7 @@ const Registration = () => {
           changepassword: '',
         }}
         validationSchema={SignupSchema}
-        onSubmit={values => {
-          console.log(values);
-        }}
+        onSubmit={values => fetchRegistration(values, navigate)}
       >
         {({ errors, touched, }) => (
           <Form>
