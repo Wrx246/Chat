@@ -47,7 +47,7 @@ const Chat = () => {
             )
           })}
         </div>
-        <ContactSettings />
+        <ContactSettings user={user} />
       </div>
       <div className={st.message_wrapper}>
         <div className={st.message_header}>

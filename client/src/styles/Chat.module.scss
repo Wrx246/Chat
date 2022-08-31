@@ -6,6 +6,22 @@
     display: grid;
     grid-template-columns: 15% 85%;
     column-gap: 6px;
+
+    @media screen and (max-width: 1740px) and (min-width: 1360px) {
+        grid-template-columns: 20% 80%;
+    }
+
+    @media screen and (max-width: 1360px) and (min-width: 1050px) {
+        grid-template-columns: 25% 75%;
+    }
+
+    @media screen and (max-width: 1050px) and (min-width: 800px) {
+        grid-template-columns: 30% 70%;
+    }
+
+    @media screen and (max-width: 800px) and (min-width: 400px) {
+        grid-template-columns: 35% 65%;
+    }
 }
 
 .chat_contacts {
