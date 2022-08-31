@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const authRouter = require('./routes/authRouter')
 const conversationRouter = require('./routes/conversationRouter')
 const messageRouter = require('./routes/messageRouter')
+const userRouter = require('./routes/userRouter')
 
 const app = express();
 require("dotenv").config()
@@ -13,6 +14,7 @@ app.use(express.json())
 app.use('/auth', authRouter)
 app.use('/conversations', conversationRouter)
 app.use('/messages', messageRouter)
+app.use('/user', userRouter)
 
 const start = async () => {
     try {

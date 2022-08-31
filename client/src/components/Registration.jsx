@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import st from '../styles/Form.module.scss'
-import { fetchRegistration } from '../utils/apiFetch';
+import { fetchRegistration } from '../utils/authFetch';
 
 
 const Registration = () => {

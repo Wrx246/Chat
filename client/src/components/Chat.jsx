@@ -1,12 +1,23 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import st from '../styles/Chat.module.scss'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
 import MessageHeader from '../UI/MessageHeader'
 import MessageInput from '../UI/MessageInput'
 import MessageItem from '../UI/MessageItem'
+import { conversationFetch, getUser } from '../utils/chatFetch'
 
 const Chat = () => {
+  const [conversation, setConversation] = useState([])
+
+  const user = JSON.parse(localStorage.getItem('chat-user'))
+
+  useEffect(() => {
+    conversationFetch(user, setConversation)
+  }, [user._id])
+
 
   return (
     <div className={st.chat_wrapper}>
@@ -16,7 +27,11 @@ const Chat = () => {
           <input placeholder='Search for contacts' />
         </div>
         <div className={st.chat_body}>
-          <ContactItem />
+          {conversation.map((c, index) => {
+            return (
+              <ContactItem key={index} conversation={c} user={user} />
+            )
+          })}
         </div>
         <ContactSettings />
       </div>
