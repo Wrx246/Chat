@@ -36,8 +36,8 @@ class authController {
             await user.save()
             return res.json({ message: 'Пользователь зарегистрирован', user, status: true })
         } catch (e) {
-            console.log("Error1:", e);
-            res.status(400).json({ message: 'Registration error' })
+            console.log("Error:", e);
+            res.status(400).json(e)
         }
     }
     async login(req, res) {
@@ -66,8 +66,7 @@ class authController {
     }
     async users(req, res) {
         try {
-            // res.json('server work')
-            console.log('server work');
+            res.json('server work')
         } catch (e) {
 
         }
