@@ -1,0 +1,86 @@
+.message_input {
+    height: 116px;
+    width: 100%;
+    background: #F5F7FB;
+    border: 1px solid #E5EDF2;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    .input_voice {
+        margin-top: 55px;
+        display: flex;
+        column-gap: 8px;
+
+        button {
+            position: static;
+            height: 32px;
+            width: 32px;
+            background: #FFFFFF;
+            border: 1px solid #D9D9D9;
+            border-radius: 50%;
+            cursor: pointer;
+
+            img {
+                height: 12px;
+                width: 10px;
+
+                &:hover {
+                    filter: invert(57%) sepia(87%) saturate(2217%) hue-rotate(196deg) brightness(100%) contrast(86%);
+                }
+
+                &:active {
+                    filter: invert(53%) sepia(50%) saturate(7291%) hue-rotate(207deg) brightness(93%) contrast(84%);
+                }
+            }
+        }
+    }
+
+    form {
+        position: relative;
+        margin: 52px 24px 24px 8px;
+        width: 92%;
+
+        input {
+            height: 40px;
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid #D9D9D9;
+            border-radius: 999px;
+            padding: 9px 16px;
+            color: #888888;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+        }
+
+        button {
+            border: none;
+            background-color: transparent;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            border-radius: 5px;
+            right: 0px;
+            border: none;
+            top: 0px;
+            cursor: pointer;
+
+            img {
+                height: 23px;
+                width: 23px;
+
+                &:hover {
+                    filter: invert(57%) sepia(87%) saturate(2217%) hue-rotate(196deg) brightness(100%) contrast(86%);
+                }
+
+                &:active {
+                    filter: invert(53%) sepia(50%) saturate(7291%) hue-rotate(207deg) brightness(93%) contrast(84%);
+                }
+            }
+        }
+    }
+}
