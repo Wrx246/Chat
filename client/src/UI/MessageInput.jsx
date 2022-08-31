@@ -3,13 +3,18 @@ import SubmitLogo from '../assets/images/send.svg'
 import VoiceLogo from '../assets/images/voice.svg'
 import AttachLogo from '../assets/images/attach.svg'
 import st from '../styles/MessageInput.module.scss'
+import { submitMessage } from '../utils/chatFetch'
 
-const MessageInput = () => {
+const MessageInput = (
+    { newMessage,
+        setNewMessage,
+        user,
+        currentChat,
+        setMessages,
+        messages }
+) => {
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    }
-    
+
     return (
         <div className={st.message_input}>
             <div className={st.input_voice}>
@@ -20,10 +25,19 @@ const MessageInput = () => {
                     <img src={VoiceLogo} alt='voice image' />
                 </button>
             </div>
-            <form onSubmit={e => handleSubmit(e)}>
-                <input placeholder='search' />
-                <button type='submit'><img src={SubmitLogo} alt='submit image' /></button>
-            </form>
+            <div className={st.input_body}>
+                <input
+                    type='text'
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder='search' />
+                <button
+                    type='submit'
+                    onClick={e => submitMessage(
+                        e, user, newMessage, currentChat, setMessages, messages, setNewMessage)}>
+                    <img src={SubmitLogo} alt='submit image' />
+                </button>
+            </div>
         </div>
     )
 }

@@ -22,3 +22,35 @@ export const getUser = async (friendId, setFriend) => {
         console.log(error)
     }
 }
+
+export const getMessages = async (currentChat, setMessages) => {
+    try {
+        await API.get(`messages/${currentChat?._id}`)
+            .then((res) => {
+                setMessages(res.data)
+            })
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+export const submitMessage = async (
+    e, user, newMessage, currentChat, setMessages, messages, setNewMessage) => {
+    e.preventDefault();
+    const message = {
+        sender: user._id,
+        text: newMessage,
+        conversationId: currentChat._id,
+    }
+    try {
+        await API.post(`messages`, message)
+            .then((res) => {
+                setMessages([...messages, res.data])
+                setNewMessage('')
+            })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
