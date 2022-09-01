@@ -30,8 +30,9 @@ const Chat = () => {
         text: data.text,
         createdAt: Date.now(),
       })
+      console.log(data)
     })
-  }, [])
+  }, [messages])
 
   useEffect(() => {
     arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&

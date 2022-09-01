@@ -35,7 +35,8 @@ const MessageInput = (
                 <button
                     type='submit'
                     onClick={e => submitMessage(
-                        e, user, newMessage, currentChat, setMessages, messages, setNewMessage, socket)}>
+                        e, user, newMessage, currentChat, setMessages, messages, setNewMessage, socket
+                        )}>
                     <img src={SubmitLogo} alt='submit image' />
                 </button>
             </div>

@@ -46,8 +46,8 @@ export const submitMessage = async (
 
     const receiverId = currentChat.members.find((member) => member !== user._id)
 
-    socket.current.emit('sendMessage', {
-        senderId: user._ud,
+    await socket.current.emit('sendMessage', {
+        senderId: user._id,
         receiverId,
         text: newMessage
     })
