@@ -42,11 +42,11 @@ class authController {
     }
     async login(req, res) {
         try {
-            const { username, password } = req.body
-            const user = await User.findOne({ username })
+            const { userName, password } = req.body
+            const user = await User.findOne({ userName })
             if (!user) {
                 return res.status(400).json({
-                    message: `Пользователь с ${username} не найден`,
+                    message: `Пользователь с ${userName} не найден`,
                     status: false
                 })
             }
@@ -58,7 +58,7 @@ class authController {
                 })
             }
             const token = generateAccessToken(user._id)
-            return res.json({ token, status: true })
+            return res.json({ user, status: true })
         } catch (e) {
             console.log(e);
             res.status(400).json({ message: 'Login error' })

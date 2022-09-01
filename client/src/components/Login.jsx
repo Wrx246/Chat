@@ -35,7 +35,7 @@ const Login = () => {
       >
         {({ errors, touched, }) => (
           <Form>
-            <h1>Registration</h1>
+            <h1>Login</h1>
             <div>
               <Field name="userName" placeholder='Username' />
               {errors.userName && touched.userName ? (

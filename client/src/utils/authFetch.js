@@ -33,7 +33,7 @@ export const fetchLogin = async (values, navigate) => {
         console.log(data.message)
     }
     if(data.status === true) {
-        localStorage.setItem('chat-user', JSON.stringify(data.user)); // убрать тут аксес токен, т.к. приходят разные данные
+        localStorage.setItem('chat-user', JSON.stringify(data.user));
         navigate('/');
     }
 }

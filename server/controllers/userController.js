@@ -14,6 +14,7 @@ class userController {
             res.status(500).json(e)
         }
     }
+
 }
 
 
