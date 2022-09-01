@@ -10,7 +10,6 @@ class conversationController {
             const savedConversation = await newConversation.save();
             res.status(200).json(savedConversation);
         } catch (e) {
-            console.log("Error:", e);
             res.status(500).json(e)
         }
     }
@@ -22,7 +21,17 @@ class conversationController {
             });
             res.status(200).json(conversationId)
         } catch (e) {
-            console.log("Error:", e);
+            res.status(500).json(e)
+        }
+    }
+
+    async newConversation(req, res) {
+        try {
+            const conversation = await Conversation.findOne({
+                members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+            })
+            res.status(200).json(conversation)
+        } catch (e) {
             res.status(500).json(e)
         }
     }

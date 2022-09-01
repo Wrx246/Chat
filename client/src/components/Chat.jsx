@@ -2,14 +2,16 @@ import React from 'react'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 import st from '../styles/Chat.module.scss'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
+import ContactsOnline from '../UI/ContactsOnline'
 import MessageHeader from '../UI/MessageHeader'
 import MessageInput from '../UI/MessageInput'
 import MessageItem from '../UI/MessageItem'
-import { conversationFetch, getMessages } from '../utils/chatFetch'
+import SearchContacts from '../UI/SearchContacts'
+import { conversationFetch, getMessages, getUserName } from '../utils/chatFetch'
 
 const Chat = () => {
   const [conversation, setConversation] = useState([])
@@ -17,6 +19,9 @@ const Chat = () => {
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [arrivalMessage, setArrivalMessage] = useState(null)
+  const [onlineUsers, setOnlineUsers] = useState([])
+  const [searchFriend, setSearchFriend] = useState([])
+  const [friends, setFriends] = useState({})
   const socket = useRef()
   const scrollRef = useRef();
 
@@ -30,19 +35,21 @@ const Chat = () => {
         text: data.text,
         createdAt: Date.now(),
       })
-      console.log(data)
     })
   }, [messages])
 
   useEffect(() => {
     arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
-    setMessages((prev) => [...prev, arrivalMessage])
+      setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage, currentChat])
 
   useEffect(() => {
     socket.current.emit('addUser', user._id)
     socket.current.on('getUsers', (users) => {
       // console.log(users)
+      // setOnlineUsers(
+      //   user.filter((f) => users.some((u) => u.userId === f))
+      // )
     })
   }, [user])
 
@@ -56,17 +63,50 @@ const Chat = () => {
   }, [currentChat])
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({behavior: 'smooth'})
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  useEffect(() => {
+    getUserName(searchFriend, setFriends)
+    console.log(friends)
+  }, [searchFriend])
+
 
   return (
     <div className={st.chat_wrapper}>
       <div className={st.chat_contacts}>
         <div className={st.chat_header}>
           <h3>X-chat</h3>
-          <input placeholder='Search for contacts' />
+          <input
+            value={searchFriend}
+            onChange={(e) => setSearchFriend(e.target.value)}
+            type='text'
+            placeholder='Search for contacts' />
         </div>
         <div className={st.chat_body}>
+
+          {searchFriend &&
+            <>
+              <span>Search members</span>
+              <SearchContacts
+                currentId={user._id}
+                friends={friends}
+                setCurrentChat={setCurrentChat} />
+            </>
+          }
+          {/* <span>Online members</span> */}
+          {/* {[friends].map((f, index) => {
+            return (
+              <ContactsOnline
+                key={index}
+                friends={friends}
+                searchFriend={searchFriend}
+                onlineUsers={onlineUsers}
+                currentId={user._id}
+                setCurrentChat={setCurrentChat} />
+            )
+          })} */}
+          <span>Members</span>
           {conversation.map((c, index) => {
             return (
               <div key={index} onClick={() => setCurrentChat(c)}>
@@ -79,7 +119,7 @@ const Chat = () => {
       </div>
       <div className={st.message_wrapper}>
         <div className={st.message_header}>
-          <MessageHeader />
+          <MessageHeader conversation={conversation} user={user} />
           <div className={st.header_input}>
             <input placeholder='search' />
           </div>

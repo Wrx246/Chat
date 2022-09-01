@@ -23,6 +23,17 @@ export const getUser = async (friendId, setFriend) => {
     }
 }
 
+export const getUserName = async (friendName, setFriend) => {
+    try {
+        await API.get(`user?userName=${friendName}`)
+            .then((res) => {
+                setFriend(res.data)
+            })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const getMessages = async (currentChat, setMessages) => {
     try {
         await API.get(`messages/${currentChat?._id}`)
