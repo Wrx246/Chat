@@ -24,3 +24,5 @@
 
 /server/node_modules
 /server/.env
+
+/socket/node_modules

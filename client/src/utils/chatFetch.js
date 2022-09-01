@@ -36,13 +36,22 @@ export const getMessages = async (currentChat, setMessages) => {
 }
 
 export const submitMessage = async (
-    e, user, newMessage, currentChat, setMessages, messages, setNewMessage) => {
+    e, user, newMessage, currentChat, setMessages, messages, setNewMessage, socket) => {
     e.preventDefault();
     const message = {
         sender: user._id,
         text: newMessage,
         conversationId: currentChat._id,
     }
+
+    const receiverId = currentChat.members.find((member) => member !== user._id)
+
+    socket.current.emit('sendMessage', {
+        senderId: user._ud,
+        receiverId,
+        text: newMessage
+    })
+
     try {
         await API.post(`messages`, message)
             .then((res) => {
