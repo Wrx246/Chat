@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { io } from 'socket.io-client'
 import { useDebounce } from '../hooks/useDebounce'
 import st from '../styles/Chat.module.scss'
+import Logo from '../assets/images/logo.svg'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
 import ContactSlider from '../UI/ContactSlider'
@@ -67,7 +68,7 @@ const Chat = () => {
 
   useEffect(() => {
     conversationFetch(user, setConversation)
-  }, [user._id])
+  }, [user, user._id])
 
   useEffect(() => {
     getMessages(currentChat, setMessages)
@@ -78,24 +79,25 @@ const Chat = () => {
   }, [messages])
 
 
-
   return (
     <div className={st.chat_wrapper}>
       <div className={st.chat_contacts}>
         <div className={st.chat_header}>
-          <h3>X-chat</h3>
+          <div className={st.chat_logo}>
+            <img src={Logo} alt="logo img" />
+            <h3>X-chat</h3>
+          </div>
           <input
             value={searchFriend}
             onChange={searchContacts}
-            type='text'
-            placeholder='Search for contacts' />
+            type="text"
+            placeholder="Search for contacts" />
         </div>
         <div className={st.chat_body}>
-
           {searchFriend &&
             <>
               <ContactSlider
-                text='Search members'
+                text="Search members"
                 showContacts={showMembers}
                 setShowContacts={setShowMembers} />
               <SearchContacts
@@ -116,8 +118,9 @@ const Chat = () => {
                 setCurrentChat={setCurrentChat} />
             )
           })} */}
+          <hr />
           <ContactSlider
-            text='Members'
+            text="Members"
             showContacts={showContacts}
             setShowContacts={setShowContacts} />
           {showContacts &&
@@ -140,7 +143,7 @@ const Chat = () => {
             <div className={st.message_header}>
               <MessageHeader currentChat={currentChat} user={user} />
               <div className={st.header_input}>
-                <input placeholder='search' />
+                <input placeholder="search" />
               </div>
             </div>
             <div className={st.message_body}>

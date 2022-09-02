@@ -1,0 +1,39 @@
+{
+    "extends": [
+        "react-app",
+        "react-app/jest"
+    ],
+    "rules": {
+        "no-unused-vars": "warn",
+        "no-console": "warn",
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "jsx-quotes": [
+            "warn",
+            "prefer-double"
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 130
+            }
+        ],
+        "import/order": [
+            "warn",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index",
+                    "object",
+                    "type"
+                ]
+            }
+        ]
+    }
+}

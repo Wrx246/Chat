@@ -42,11 +42,22 @@
         justify-content: space-between;
         padding: 23px 24px;
 
-        h3 {
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 22px;
-            color: #222222;
+        .chat_logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            h3 {
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 22px;
+                color: #222222;
+            }
+
+            img {
+                height: 24px;
+                width: 24px;
+            }
         }
 
         input {
@@ -71,6 +82,10 @@
         flex-direction: column;
         gap: 8px;
         overflow-y: auto;
+
+        hr {
+            border: 1px solid #F5F7FB;
+        }
 
         &::-webkit-scrollbar {
             width: 5px;
