@@ -3,14 +3,14 @@ import ProfileImage from '../assets/images/profile-image.png'
 import st from '../styles/MessageHeader.module.scss'
 import { getUser } from '../utils/chatFetch'
 
-const MessageHeader = ({conversation, user}) => {
+const MessageHeader = ({user, currentChat }) => {
     const [friend, setFriend] = useState({})
 
-    // useEffect(() => {
-    //     const friendId = conversation.members.find((member) => member !== user._id);
-    //     getUser(friendId, setFriend)
-    //     console.log(friend)
-    // }, [conversation, user])
+
+    useEffect(() => {
+        let friendId = currentChat['members'].find((member) => member !== user._id)
+        getUser(friendId, setFriend)
+    }, [currentChat, user])
 
     return (
         <div className={st.header_decription}>

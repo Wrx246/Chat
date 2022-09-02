@@ -26,11 +26,11 @@ const Chat = () => {
   const socket = useRef()
   const scrollRef = useRef();
 
-  
+
 
   const debounceSearch = useDebounce(getUserName, 500);
 
-  
+
   const searchContacts = (e) => {
     setSearchFriend(e.target.value)
     debounceSearch(e.target.value, setFriends)
@@ -97,7 +97,7 @@ const Chat = () => {
         </div>
         <div className={st.chat_body}>
 
-          {searchFriend &&
+          {searchFriend !== '' &&
             <>
               <span>Search members</span>
               <SearchContacts
@@ -130,15 +130,15 @@ const Chat = () => {
         <ContactSettings user={user} />
       </div>
       <div className={st.message_wrapper}>
-        <div className={st.message_header}>
-          <MessageHeader conversation={conversation} user={user} />
-          <div className={st.header_input}>
-            <input placeholder='search' />
-          </div>
-        </div>
-        <div className={st.message_body}>
-          {currentChat ?
-            <>
+        {currentChat ?
+          <>
+            <div className={st.message_header}>
+              <MessageHeader currentChat={currentChat} user={user} />
+              <div className={st.header_input}>
+                <input placeholder='search' />
+              </div>
+            </div>
+            <div className={st.message_body}>
               {
                 messages.map((message, index) => {
                   return (
@@ -148,18 +148,18 @@ const Chat = () => {
                   )
                 })
               }
-            </>
-            : <span>Start talking with your friends</span>}
-        </div>
-        <MessageInput
-          socket={socket}
-          user={user}
-          currentChat={currentChat}
-          setNewMessage={setNewMessage}
-          newMessage={newMessage}
-          setMessages={setMessages}
-          messages={messages}
-        />
+            </div>
+            <MessageInput
+              socket={socket}
+              user={user}
+              currentChat={currentChat}
+              setNewMessage={setNewMessage}
+              newMessage={newMessage}
+              setMessages={setMessages}
+              messages={messages}
+            />
+          </>
+          : <span>Start talking with your friends</span>}
       </div>
     </div>
   )

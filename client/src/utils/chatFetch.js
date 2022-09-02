@@ -24,7 +24,7 @@ export const getUser = async (friendId, setFriend) => {
 }
 
 export const getUserName = async (friendName, setFriend) => {
-    if(friendName === '') {
+    if (friendName === '') {
         return;
     }
 
