@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { io } from 'socket.io-client'
+import { useDebounce } from '../hooks/useDebounce'
 import st from '../styles/Chat.module.scss'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
@@ -24,6 +25,16 @@ const Chat = () => {
   const [friends, setFriends] = useState({})
   const socket = useRef()
   const scrollRef = useRef();
+
+  
+
+  const debounceSearch = useDebounce(getUserName, 500);
+
+  
+  const searchContacts = (e) => {
+    setSearchFriend(e.target.value)
+    debounceSearch(e.target.value, setFriends)
+  }
 
   const user = JSON.parse(localStorage.getItem('chat-user'))
 
@@ -66,10 +77,11 @@ const Chat = () => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  useEffect(() => {
-    getUserName(searchFriend, setFriends)
-    console.log(friends)
-  }, [searchFriend])
+  // useEffect(() => {
+  //   if(searchFriend !== '') {
+  //     getUserName(searchFriend, setFriends)
+  //   }
+  // }, [searchFriend])
 
 
   return (
@@ -79,7 +91,7 @@ const Chat = () => {
           <h3>X-chat</h3>
           <input
             value={searchFriend}
-            onChange={(e) => setSearchFriend(e.target.value)}
+            onChange={searchContacts}
             type='text'
             placeholder='Search for contacts' />
         </div>

@@ -24,6 +24,10 @@ export const getUser = async (friendId, setFriend) => {
 }
 
 export const getUserName = async (friendName, setFriend) => {
+    if(friendName === '') {
+        return;
+    }
+
     try {
         await API.get(`user?userName=${friendName}`)
             .then((res) => {
