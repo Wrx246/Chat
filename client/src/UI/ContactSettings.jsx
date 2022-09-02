@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getUser } from '../utils/chatFetch'
 import SettingsLogo from '../assets/images/settings.svg'
 import LogoutLogo from '../assets/images/logout.svg'
 import ProfileImage from '../assets/images/profile-image.png'
 import st from '../styles/ContactSettings.module.scss'
-import { getUser } from '../utils/chatFetch'
-import { useNavigate } from 'react-router-dom'
+
+
 
 const ContactSettings = ({ user }) => {
     const navigate = useNavigate();

@@ -1,0 +1,21 @@
+.contacts_slider {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    img {
+        width: 8px;
+        height: 8px;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    span {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 15px;
+        color: #888888;
+    }
+}

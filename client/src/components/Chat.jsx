@@ -7,6 +7,7 @@ import { useDebounce } from '../hooks/useDebounce'
 import st from '../styles/Chat.module.scss'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
+import ContactSlider from '../UI/ContactSlider'
 import ContactsOnline from '../UI/ContactsOnline'
 import MessageHeader from '../UI/MessageHeader'
 import MessageInput from '../UI/MessageInput'
@@ -20,6 +21,8 @@ const Chat = () => {
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [arrivalMessage, setArrivalMessage] = useState(null)
+  const [showContacts, setShowContacts] = useState(false)
+  const [showMembers, setShowMembers] = useState(false)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [searchFriend, setSearchFriend] = useState([])
   const [friends, setFriends] = useState({})
@@ -91,7 +94,10 @@ const Chat = () => {
 
           {searchFriend &&
             <>
-              <span>Search members</span>
+              <ContactSlider
+                text='Search members'
+                showContacts={showMembers}
+                setShowContacts={setShowMembers} />
               <SearchContacts
                 currentId={user._id}
                 friends={friends}
@@ -110,14 +116,21 @@ const Chat = () => {
                 setCurrentChat={setCurrentChat} />
             )
           })} */}
-          <span>Members</span>
-          {conversation.map((c, index) => {
-            return (
-              <div key={index} onClick={() => setCurrentChat(c)}>
-                <ContactItem conversation={c} user={user} />
-              </div>
-            )
-          })}
+          <ContactSlider
+            text='Members'
+            showContacts={showContacts}
+            setShowContacts={setShowContacts} />
+          {showContacts &&
+            <>
+              {conversation.map((c, index) => {
+                return (
+                  <div key={index} onClick={() => setCurrentChat(c)}>
+                    <ContactItem conversation={c} user={user} />
+                  </div>
+                )
+              })}
+            </>
+          }
         </div>
         <ContactSettings user={user} />
       </div>
