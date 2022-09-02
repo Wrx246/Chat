@@ -9,11 +9,11 @@ import { fetchRegistration } from '../utils/authFetch';
 const Registration = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if(localStorage.getItem('chat-user')) {
-  //     navigate('/')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if(localStorage.getItem('chat-user')) {
+      navigate('/')
+    }
+  }, [])
 
   const SignupSchema = Yup.object().shape({
     userName: Yup.string()

@@ -25,7 +25,8 @@ export const fetchLogin = async (values, navigate) => {
     const { data } = await API.post(`auth/login`, {
         userName,
         password,
-    }).catch(err => {
+    })
+    .catch(err => {
         console.log("error:", err)
     })
 

@@ -26,10 +26,7 @@ const Chat = () => {
   const socket = useRef()
   const scrollRef = useRef();
 
-
-
   const debounceSearch = useDebounce(getUserName, 500);
-
 
   const searchContacts = (e) => {
     setSearchFriend(e.target.value)
@@ -77,11 +74,6 @@ const Chat = () => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  // useEffect(() => {
-  //   if(searchFriend !== '') {
-  //     getUserName(searchFriend, setFriends)
-  //   }
-  // }, [searchFriend])
 
 
   return (
@@ -97,7 +89,7 @@ const Chat = () => {
         </div>
         <div className={st.chat_body}>
 
-          {searchFriend !== '' &&
+          {searchFriend &&
             <>
               <span>Search members</span>
               <SearchContacts
@@ -159,7 +151,12 @@ const Chat = () => {
               messages={messages}
             />
           </>
-          : <span>Start talking with your friends</span>}
+          : <div className={st.chat_preloader}>
+            <h2>
+              Welcome, {user.userName}<br />
+              Start talking with your friends
+            </h2>
+          </div>}
       </div>
     </div>
   )

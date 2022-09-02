@@ -10,6 +10,8 @@ import { useEffect } from 'react'
 const Login = () => {
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
     if(localStorage.getItem('chat-user')) {
       navigate('/')
