@@ -25,7 +25,7 @@ const Chat = () => {
   const [showContacts, setShowContacts] = useState(false)
   const [showMembers, setShowMembers] = useState(false)
   const [onlineUsers, setOnlineUsers] = useState([])
-  const [searchFriend, setSearchFriend] = useState([])
+  const [searchFriend, setSearchFriend] = useState('')
   const [friends, setFriends] = useState({})
   const socket = useRef()
   const scrollRef = useRef();
@@ -94,7 +94,7 @@ const Chat = () => {
             placeholder="Search for contacts" />
         </div>
         <div className={st.chat_body}>
-          {searchFriend &&
+          {friends && searchFriend !== '' &&
             <>
               <ContactSlider
                 text="Search members"
@@ -118,7 +118,7 @@ const Chat = () => {
                 setCurrentChat={setCurrentChat} />
             )
           })} */}
-          <hr />
+          < hr />
           <ContactSlider
             text="Members"
             showContacts={showContacts}
