@@ -17,7 +17,7 @@ const ContactItem = ({conversation, user}) => {
 
     return (
         <div className={st.contact_item}>
-            <img src={ContactImage} alt='contact image' />
+            <img src={ContactImage} alt="contact img" />
             <span>{friend.userName}</span>
         </div>
     )

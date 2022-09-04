@@ -14,6 +14,18 @@ class userController {
             res.status(500).json(e)
         }
     }
+    async getUserData (req, res) {
+        const userId = req.query.userId;
+        try {
+            // const user = await User.findById(userId);
+            // const { password, updatedAt, ...other } = user._doc;
+            const user = await User.findById(userId);
+            res.status(200).json(user)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    }
+    // попробовать взять юзера по обычному запросу с айдишником в бади
 }
 
 

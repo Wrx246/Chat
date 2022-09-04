@@ -23,6 +23,17 @@ export const getUser = async (friendId, setFriend) => {
     }
 }
 
+export const getUserData = async (friendId, setFriend) => {
+    try {
+        await API.get(`user/userdata?userId=${friendId}`)
+            .then((res) => {
+                setFriend(res.data)
+            })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const getUserName = async (friendName, setFriend) => {
     if (friendName === '') {
         return;
