@@ -19,25 +19,33 @@ const MessageInput = (
     return (
         <div className={st.message_input}>
             <div className={st.input_voice}>
-                <button type='button'>
-                    <img src={AttachLogo} alt='attach image' />
+                <button type="button">
+                    <img src={AttachLogo} alt="attach img" />
                 </button>
-                <button type='button'>
-                    <img src={VoiceLogo} alt='voice image' />
+                <button type="button">
+                    <img src={VoiceLogo} alt="voice img" />
                 </button>
             </div>
             <div className={st.input_body}>
                 <input
-                    type='text'
+                    type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder='search' />
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                            submitMessage(
+                                e, user, newMessage, currentChat,
+                                setMessages, messages, setNewMessage, socket
+                            )
+                        }
+                    }}
+                    placeholder="search" />
                 <button
-                    type='submit'
+                    type="submit"
                     onClick={e => submitMessage(
                         e, user, newMessage, currentChat, setMessages, messages, setNewMessage, socket
-                        )}>
-                    <img src={SubmitLogo} alt='submit image' />
+                    )}>
+                    <img src={SubmitLogo} alt="submit img" />
                 </button>
             </div>
         </div>
