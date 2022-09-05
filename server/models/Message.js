@@ -9,6 +9,10 @@ const Message = new Schema({
     },
     text: {
         type: String
+    },
+    messageImage: {
+        type: String,
+        default: '',
     }
 }, { timestamps: true })
 
