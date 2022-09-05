@@ -126,6 +126,12 @@
     }
 }
 
+@keyframes bar {
+    0% { width: 50px; }
+    50% { width: 170px; }
+    90% { width: 250px; }
+   }
+
 .message_header {
     width: 100%;
     height: 78px;
@@ -137,6 +143,33 @@
     padding: 24px;
 
     .header_input {
+        position: relative;
+        height: 40px;
+
+        button {
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            top: 0;
+            right: 0;
+            background: #FFFFFF;
+            border: 1px solid #D9D9D9;
+            border-radius: 50%;
+            cursor: pointer;
+
+            img {
+                height: 13px;
+                width: 13px;
+
+                &:hover {
+                    filter: invert(57%) sepia(87%) saturate(2217%) hue-rotate(196deg) brightness(100%) contrast(86%);
+                }
+
+                &:active {
+                    filter: invert(53%) sepia(50%) saturate(7291%) hue-rotate(207deg) brightness(93%) contrast(84%);
+                }
+            }
+        }
 
         input {
             width: 280px;
@@ -145,6 +178,7 @@
             background: #FFFFFF;
             border-radius: 999px;
             border: none;
+            animation: bar .5s linear;
         }
     }
 }

@@ -6,6 +6,7 @@ import { io } from 'socket.io-client'
 import { useDebounce } from '../hooks/useDebounce'
 import st from '../styles/Chat.module.scss'
 import Logo from '../assets/images/logo.svg'
+import Search from '../assets/images/Search.svg'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
 import ContactSlider from '../UI/ContactSlider'
@@ -27,6 +28,7 @@ const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState([])
   const [searchFriend, setSearchFriend] = useState('')
   const [friends, setFriends] = useState({})
+  const [showSearch, setShowSearch] = useState(false);
   const socket = useRef()
   const scrollRef = useRef();
 
@@ -143,7 +145,10 @@ const Chat = () => {
             <div className={st.message_header}>
               <MessageHeader currentChat={currentChat} user={user} />
               <div className={st.header_input}>
-                <input placeholder="search" />
+                <button type="button" onClick={() => setShowSearch(!showSearch)}>
+                  <img src={Search} alt="search message" />
+                </button>
+                {showSearch && <input placeholder="search" />}
               </div>
             </div>
             <div className={st.message_body}>

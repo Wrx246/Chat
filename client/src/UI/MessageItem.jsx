@@ -15,7 +15,7 @@ const MessageItem = ({message}) => {
 
     return (
         <div className={st.message_item}>
-            <img src={ProfileImage} alt='profile image' />
+            <img src={ProfileImage} alt="profile img" />
             <div>
                 <span>{ friend ? friend.userName : 'Username'}</span>
                 <p>{text}</p>
