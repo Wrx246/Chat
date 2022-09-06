@@ -29,7 +29,7 @@ const MessageItem = ({ message }) => {
 
     const handleRemove = (e) => {
         e.preventDefault();
-        deleteMessage(_id, setShowDelete)
+        deleteMessage(message, setShowDelete)
     }
 
     if (showDelete === true) {

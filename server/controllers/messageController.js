@@ -1,5 +1,7 @@
 const Message = require('../models/Message')
 const MessageImage = require('../models/MessageImage')
+const fs = require('fs')
+const path = require('path')
 
 
 class messageController {
@@ -44,11 +46,19 @@ class messageController {
     }
 
     async deleteMessage(req, res) {
+        const { _id, messageImage } = req.body
         try {
             const message = await Message.findById({
-                _id: req.body._id,
+                _id: _id,
             })
             await Message.deleteOne(message)
+            if (messageImage !== null) {
+                fs.rm(messageImage.filePath, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+            }
             res.status(200).json({ success: true })
         } catch (e) {
             console.log("Error:", e);

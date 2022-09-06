@@ -114,11 +114,9 @@ export const submitImage = async (user, newMessage, currentChat, setMessages, me
     }
 }
 
-export const deleteMessage = async (_id, setShowDelete) => {
+export const deleteMessage = async (message, setShowDelete) => {
     try {
-        await API.post('messages/delete', {
-            _id: _id,
-        })
+        await API.post('messages/delete', message)
         .then((res) => {
             if(res.data.success === true) {
                 setShowDelete(true)
