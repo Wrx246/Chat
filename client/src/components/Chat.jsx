@@ -28,7 +28,10 @@ const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState([])
   const [searchFriend, setSearchFriend] = useState('')
   const [friends, setFriends] = useState({})
-  const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(false)
+
+  const [imageData, setImageData] = useState(null)
+
   const socket = useRef()
   const scrollRef = useRef();
 
@@ -170,6 +173,8 @@ const Chat = () => {
               newMessage={newMessage}
               setMessages={setMessages}
               messages={messages}
+              imageData={imageData}
+              setImageData={setImageData}
             />
           </>
           : <div className={st.chat_preloader}>

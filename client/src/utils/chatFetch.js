@@ -62,12 +62,14 @@ export const getMessages = async (currentChat, setMessages) => {
 }
 
 export const submitMessage = async (
-    e, user, newMessage, currentChat, setMessages, messages, setNewMessage, socket) => {
-    e.preventDefault();
+    user, newMessage, currentChat, setMessages, messages, setNewMessage, 
+    socket, image, setImage, imageData, setImageData
+    ) => {
     const message = {
         sender: user._id,
         text: newMessage,
         conversationId: currentChat._id,
+        messageImage: imageData
     }
 
     const receiverId = currentChat.members.find((member) => member !== user._id)
@@ -84,8 +86,30 @@ export const submitMessage = async (
                 setMessages([...messages, res.data])
                 setNewMessage('')
             })
-
     } catch (error) {
         console.log(error)
     }
 }
+
+export const submitImage = async (user, newMessage, currentChat, setMessages, messages, setNewMessage, 
+    socket, image, setImage, imageData, setImageData) => {
+
+    const data = new FormData();
+    data.append('image', image)
+    try {
+        await API.post('messages/image', data, {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        })
+        .then((res) => {
+            const imageData = res.data;
+            setImage(null)
+            submitMessage(user, newMessage, currentChat, setMessages, messages, setNewMessage, 
+                socket, image, setImage, imageData, setImageData)
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+

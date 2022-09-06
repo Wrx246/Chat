@@ -4,7 +4,7 @@ import VoiceLogo from '../assets/images/voice.svg'
 import AttachLogo from '../assets/images/attach.svg'
 import Upload from '../assets/images/upload.svg'
 import st from '../styles/MessageInput.module.scss'
-import { submitMessage } from '../utils/chatFetch'
+import { submitImage, submitMessage } from '../utils/chatFetch'
 import SendImage from './SendImage'
 
 const MessageInput = (
@@ -14,9 +14,24 @@ const MessageInput = (
         currentChat,
         setMessages,
         messages,
-        socket }
+        socket, imageData, setImageData }
 ) => {
     const [image, setImage] = useState(null)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (image === null) {
+            submitMessage(
+                user, newMessage, currentChat,
+                setMessages, messages, setNewMessage, socket, image, setImage, imageData, setImageData
+            )
+        } else if (image !== null) {
+            submitImage(
+                user, newMessage, currentChat,
+                setMessages, messages, setNewMessage, socket, image, setImage, imageData, setImageData
+            )
+        }
+    }
 
 
     return (
@@ -55,18 +70,13 @@ const MessageInput = (
                         onChange={(e) => setNewMessage(e.target.value)}
                         onKeyUp={(e) => {
                             if (e.key === 'Enter') {
-                                submitMessage(
-                                    e, user, newMessage, currentChat,
-                                    setMessages, messages, setNewMessage, socket
-                                )
+                                handleSubmit(e)
                             }
                         }}
                         placeholder="search" />
                     <button
                         type="submit"
-                        onClick={e => submitMessage(
-                            e, user, newMessage, currentChat, setMessages, messages, setNewMessage, socket
-                        )}>
+                        onClick={handleSubmit}>
                         <img src={SubmitLogo} alt="submit img" />
                     </button>
                 </div>

@@ -1,18 +1,22 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model, default: mongoose } = require('mongoose')
 
 const Message = new Schema({
     conversationId: {
-        type: String
+        type: String,
+        required: true,
     },
     sender: {
-        type: String
+        type: String,
+        required: true,
     },
     text: {
-        type: String
+        type: String,
+        required: true,
     },
     messageImage: {
-        type: String,
-        default: '',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MessageImage',
+        required: false
     }
 }, { timestamps: true })
 

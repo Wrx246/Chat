@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const authRouter = require('./routes/authRouter')
@@ -9,7 +10,8 @@ const userRouter = require('./routes/userRouter')
 const app = express();
 require("dotenv").config()
 app.use(cors())
-app.use(express.json())
+app.use(express.json({ extended: true }))
+app.use('/data', express.static(path.join(__dirname, 'data')))
 
 app.use('/auth', authRouter)
 app.use('/conversations', conversationRouter)

@@ -8,16 +8,17 @@ import Push from '../assets/images/push.svg'
 import Reply from '../assets/images/Reply.svg'
 import Smile from '../assets/images/smile.svg'
 import st from '../styles/MessageItem.module.scss'
-import { getUser } from '../utils/chatFetch';
+import { getUser } from '../utils/chatFetch'
 
 const MessageItem = ({ message }) => {
     const [friend, setFriend] = useState({})
     const [showSettings, setShowSettings] = useState(false)
-    const { text, sender } = message;
+    const { text, sender, messageImage } = message;
 
     useEffect(() => {
         getUser(sender, setFriend)
     }, [message])
+
 
     const handleHover = (e) => {
         e.preventDefault();
@@ -27,9 +28,13 @@ const MessageItem = ({ message }) => {
     return (
         <div className={st.message_item} onMouseEnter={handleHover} onMouseLeave={handleHover}>
             <img src={ProfileImage} alt="profile img" />
-            <div>
+            <div className={st.message_body}>
                 <span>{friend ? friend.userName : 'Username'}</span>
-                <p>{text}</p>
+                <p>
+                    {text}
+                    {messageImage &&
+                        <img src={messageImage.filePath} alt="message img" />}
+                </p> 
             </div>
             {showSettings &&
                 <div className={st.message_settings}>
