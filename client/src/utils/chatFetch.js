@@ -77,7 +77,8 @@ export const submitMessage = async (
     await socket.current.emit('sendMessage', {
         senderId: user._id,
         receiverId,
-        text: newMessage
+        text: newMessage,
+        file: imageData,
     })
 
     try {

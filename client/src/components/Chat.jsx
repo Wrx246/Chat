@@ -50,6 +50,7 @@ const Chat = () => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
+        messageImage: data.file,
         createdAt: Date.now(),
       })
     })
