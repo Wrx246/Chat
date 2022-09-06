@@ -26,6 +26,7 @@ class messageController {
             res.status(500).json(e)
         }
     }
+
     async sendImage(req, res) {
         try {
             const file = new MessageImage({
@@ -36,6 +37,19 @@ class messageController {
             })
             const savedFile = await file.save()
             res.status(200).json(savedFile)
+        } catch (e) {
+            console.log("Error:", e);
+            res.status(500).json(e)
+        }
+    }
+
+    async deleteMessage(req, res) {
+        try {
+            const message = await Message.findById({
+                _id: req.body._id,
+            })
+            await Message.deleteOne(message)
+            res.status(200).json({ success: true })
         } catch (e) {
             console.log("Error:", e);
             res.status(500).json(e)
