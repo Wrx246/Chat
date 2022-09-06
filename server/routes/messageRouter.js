@@ -7,5 +7,6 @@ router.post('/', controller.message)
 router.post('/image', fileMiddleware.single('image'), controller.sendImage)
 router.get('/:conversationId', controller.getMessages)
 router.post('/delete', controller.deleteMessage)
+router.post('/update', controller.updateMessage)
 
 module.exports = router

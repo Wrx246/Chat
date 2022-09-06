@@ -127,3 +127,20 @@ export const deleteMessage = async (message, setShowDelete) => {
     }
 }
 
+export const updateMessage = async (_id, changeMessage, setEditMessage) => {
+    try {
+        await API.post('messages/update', {
+            _id: _id,
+            text: changeMessage,
+        })
+        .then((res) => {
+            if(res.data.success === true) {
+                console.log(res.data)
+            }
+            setEditMessage(false)
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+

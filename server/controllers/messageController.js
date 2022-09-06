@@ -65,6 +65,22 @@ class messageController {
             res.status(500).json(e)
         }
     }
+
+    async updateMessage(req, res) {
+        const { _id, text } = req.body
+        try {
+            const message = await Message.findById({
+                _id: _id,
+            })
+            const updateMessage = await Message.updateOne(message, {
+                $set: { text: text }
+            })
+            res.status(200).json({ updateMessage, success: true })
+        } catch (e) {
+            console.log("Error:", e);
+            res.status(500).json(e)
+        }
+    }
 }
 
 

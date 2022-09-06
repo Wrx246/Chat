@@ -8,14 +8,16 @@ import Push from '../assets/images/push.svg'
 import Reply from '../assets/images/Reply.svg'
 import Smile from '../assets/images/smile.svg'
 import st from '../styles/MessageItem.module.scss'
-import { deleteMessage, getUser } from '../utils/chatFetch'
+import { deleteMessage, getUser, updateMessage } from '../utils/chatFetch'
 
 const MessageItem = ({ message }) => {
     const [friend, setFriend] = useState({})
     const [showSettings, setShowSettings] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
-
+    const [editMessage, setEditMessage] = useState(false)
+    
     const { _id, text, sender, messageImage } = message;
+    const [changeMessage, setChangeMessage] = useState(text)
 
     useEffect(() => {
         getUser(sender, setFriend)
@@ -30,6 +32,11 @@ const MessageItem = ({ message }) => {
     const handleRemove = (e) => {
         e.preventDefault();
         deleteMessage(message, setShowDelete)
+    }
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        updateMessage(_id, changeMessage, setEditMessage)
     }
 
     if (showDelete === true) {
@@ -50,9 +57,22 @@ const MessageItem = ({ message }) => {
             <div className={st.message_body}>
                 <span>{friend ? friend.userName : 'Username'}</span>
                 <p>
-                    {text}
-                    {messageImage &&
-                        <img src={messageImage.filePath} alt="message img" />}
+                    {editMessage ?
+                        <input
+                            type='text'
+                            value={changeMessage}
+                            onChange={(e) => setChangeMessage(e.target.value)}
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleUpdate(e)
+                                }
+                            }} /> :
+                        <>
+                            {text}
+                            {messageImage &&
+                                <img src={messageImage.filePath} alt="message img" />}
+                        </>
+                    }
                 </p>
             </div>
             {showSettings &&
@@ -60,7 +80,7 @@ const MessageItem = ({ message }) => {
                     <img src={Smile} alt="smile" />
                     <img src={Reply} alt="reply" />
                     <img src={Push} alt="push" />
-                    <img src={Pencil} alt="pencil" />
+                    <img src={Pencil} alt="pencil" onClick={() => setEditMessage(!editMessage)} />
                     <img src={Bin} alt="bin" onClick={handleRemove} />
                 </div>
             }
