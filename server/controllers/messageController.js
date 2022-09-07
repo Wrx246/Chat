@@ -72,10 +72,10 @@ class messageController {
             const message = await Message.findById({
                 _id: _id,
             })
-            const updateMessage = await Message.updateOne(message, {
+            await Message.updateOne(message, {
                 $set: { text: text }
             })
-            res.status(200).json({ updateMessage, success: true })
+            res.status(200).json({ message, success: true })
         } catch (e) {
             console.log("Error:", e);
             res.status(500).json(e)

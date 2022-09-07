@@ -36,7 +36,7 @@ const MessageItem = ({ message }) => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        updateMessage(_id, changeMessage, setEditMessage)
+        updateMessage(_id, changeMessage, setEditMessage, text)
     }
 
     if (showDelete === true) {
@@ -50,7 +50,7 @@ const MessageItem = ({ message }) => {
             </div>
         )
     }
-
+    // Сделать обновление функци удаления и апдейта сообщений на уровне сокета
     return (
         <div className={st.message_item} onMouseEnter={handleHover} onMouseLeave={handleHover}>
             <img src={ProfileImage} alt="profile img" />
@@ -59,7 +59,7 @@ const MessageItem = ({ message }) => {
                 <p>
                     {editMessage ?
                         <input
-                            type='text'
+                            type="text"
                             value={changeMessage}
                             onChange={(e) => setChangeMessage(e.target.value)}
                             onKeyUp={(e) => {

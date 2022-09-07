@@ -16,6 +16,7 @@ import MessageInput from '../UI/MessageInput'
 import MessageItem from '../UI/MessageItem'
 import SearchContacts from '../UI/SearchContacts'
 import { conversationFetch, getMessages, getUserName } from '../utils/chatFetch'
+import UserSettings from '../UI/UserSettings'
 
 const Chat = () => {
   const [conversation, setConversation] = useState([])
@@ -31,6 +32,8 @@ const Chat = () => {
   const [showSearch, setShowSearch] = useState(false)
 
   const [imageData, setImageData] = useState(null)
+
+  const [showSettings, setShowSettings] = useState(false)
 
   const socket = useRef()
   const scrollRef = useRef();
@@ -54,6 +57,10 @@ const Chat = () => {
         createdAt: Date.now(),
       })
     })
+    // socket.current.on('getDeletedMessage', (data) => {
+    //   const removeMessage = messages.filter((message) => message._id !== data.messageId )
+    //   setMessages(removeMessage)
+    // })
   }, [messages])
 
   useEffect(() => {
@@ -87,6 +94,7 @@ const Chat = () => {
 
   return (
     <div className={st.chat_wrapper}>
+      <UserSettings showSettings={showSettings} setShowSettings={setShowSettings} />
       <div className={st.chat_contacts}>
         <div className={st.chat_header}>
           <div className={st.chat_logo}>
@@ -141,7 +149,7 @@ const Chat = () => {
             </>
           }
         </div>
-        <ContactSettings user={user} />
+        <ContactSettings user={user} showSettings={showSettings} setShowSettings={setShowSettings} />
       </div>
       <div className={st.message_wrapper}>
         {currentChat ?
@@ -160,7 +168,8 @@ const Chat = () => {
                 messages.map((message, index) => {
                   return (
                     <div key={index} ref={scrollRef}>
-                      <MessageItem message={message} />
+                      <MessageItem
+                        message={message} socket={socket} user={user} currentChat={currentChat} />
                     </div>
                   )
                 })

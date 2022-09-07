@@ -8,7 +8,7 @@ import st from '../styles/ContactSettings.module.scss'
 
 
 
-const ContactSettings = ({ user }) => {
+const ContactSettings = ({ user, showSettings, setShowSettings }) => {
     const navigate = useNavigate();
     const [friend, setFriend] = useState({})
 
@@ -24,15 +24,15 @@ const ContactSettings = ({ user }) => {
     return (
         <div className={st.chat_bottom}>
             <div>
-                <img src={ProfileImage} alt='profile image' />
-                <span>{friend ? friend.userName : 'Username'}</span>
+                <img src={ProfileImage} alt="profile img" />
+                <span>{friend ? friend.userName : "Username"}</span>
             </div>
             <div>
-                <button type='button'>
-                    <img src={SettingsLogo} alt='settings image' />
+                <button type="button" onClick={() => setShowSettings(!showSettings)}>
+                    <img src={SettingsLogo} alt="settings img" />
                 </button>
-                <button type='button' onClick={handleLogout}>
-                    <img src={LogoutLogo} alt='settings image' />
+                <button type="button" onClick={handleLogout}>
+                    <img src={LogoutLogo} alt="settings img" />
                 </button>
             </div>
         </div>

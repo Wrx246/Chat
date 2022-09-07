@@ -62,9 +62,9 @@ export const getMessages = async (currentChat, setMessages) => {
 }
 
 export const submitMessage = async (
-    user, newMessage, currentChat, setMessages, messages, setNewMessage, 
+    user, newMessage, currentChat, setMessages, messages, setNewMessage,
     socket, image, setImage, imageData, setImageData
-    ) => {
+) => {
     const message = {
         sender: user._id,
         text: newMessage,
@@ -92,7 +92,7 @@ export const submitMessage = async (
     }
 }
 
-export const submitImage = async (user, newMessage, currentChat, setMessages, messages, setNewMessage, 
+export const submitImage = async (user, newMessage, currentChat, setMessages, messages, setNewMessage,
     socket, image, setImage, imageData, setImageData) => {
 
     const data = new FormData();
@@ -103,42 +103,50 @@ export const submitImage = async (user, newMessage, currentChat, setMessages, me
                 'content-type': 'multipart/form-data',
             },
         })
-        .then((res) => {
-            const imageData = res.data;
-            setImage(null)
-            submitMessage(user, newMessage, currentChat, setMessages, messages, setNewMessage, 
-                socket, image, setImage, imageData, setImageData)
-        })
+            .then((res) => {
+                const imageData = res.data;
+                setImage(null)
+                submitMessage(user, newMessage, currentChat, setMessages, messages, setNewMessage,
+                    socket, image, setImage, imageData, setImageData)
+            })
     } catch (error) {
         console.log(error)
     }
 }
 
 export const deleteMessage = async (message, setShowDelete) => {
+
+    // const receiverId = currentChat.members.find((member) => member !== user._id)
+
+    // await socket.current.emit('deleteMessage', {
+    //     messageId: message._id,
+    //     senderId: user._id,
+    //     receiverId,
+    // })
     try {
         await API.post('messages/delete', message)
-        .then((res) => {
-            if(res.data.success === true) {
-                setShowDelete(true)
-            }
-        })
+            .then((res) => {
+                if (res.data.success === true) {
+                    setShowDelete(true)
+                }
+            })
     } catch (error) {
         console.log(error)
     }
 }
 
-export const updateMessage = async (_id, changeMessage, setEditMessage) => {
+export const updateMessage = async (_id, changeMessage, setEditMessage, text) => {
     try {
         await API.post('messages/update', {
             _id: _id,
             text: changeMessage,
         })
-        .then((res) => {
-            if(res.data.success === true) {
-                console.log(res.data)
-            }
-            setEditMessage(false)
-        })
+            .then((res) => {
+                if (res.data.success === true) {
+                    setEditMessage(false)
+                    text = res.data.message.text
+                }
+            })
     } catch (error) {
         console.log(error)
     }
