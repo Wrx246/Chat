@@ -61,12 +61,3 @@ const Login = () => {
 }
 
 export default Login;
-
-
-{/* <form onSubmit={(e) => handleSubmit(e)}>
-          <h1>Login account</h1>
-          <input type='text' placeholder='Username' name='username' />
-          <input type='password' placeholder='Password' name='password' />
-          <button type='submit'>Login in</button>
-          <span>No account? <Link to='/registration'>Sign up</Link></span>
-      </form> */}

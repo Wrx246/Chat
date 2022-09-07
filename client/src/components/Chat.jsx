@@ -94,7 +94,7 @@ const Chat = () => {
 
   return (
     <div className={st.chat_wrapper}>
-      <UserSettings showSettings={showSettings} setShowSettings={setShowSettings} />
+      <UserSettings user={user} showSettings={showSettings} setShowSettings={setShowSettings} />
       <div className={st.chat_contacts}>
         <div className={st.chat_header}>
           <div className={st.chat_logo}>
@@ -169,7 +169,7 @@ const Chat = () => {
                   return (
                     <div key={index} ref={scrollRef}>
                       <MessageItem
-                        message={message} socket={socket} user={user} currentChat={currentChat} />
+                        message={message} user={user} />
                     </div>
                   )
                 })

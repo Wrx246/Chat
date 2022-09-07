@@ -10,12 +10,12 @@ import Smile from '../assets/images/smile.svg'
 import st from '../styles/MessageItem.module.scss'
 import { deleteMessage, getUser, updateMessage } from '../utils/chatFetch'
 
-const MessageItem = ({ message }) => {
+const MessageItem = ({ message, user }) => {
     const [friend, setFriend] = useState({})
     const [showSettings, setShowSettings] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const [editMessage, setEditMessage] = useState(false)
-    
+
     const { _id, text, sender, messageImage } = message;
     const [changeMessage, setChangeMessage] = useState(text)
 
@@ -53,7 +53,10 @@ const MessageItem = ({ message }) => {
     // Сделать обновление функци удаления и апдейта сообщений на уровне сокета
     return (
         <div className={st.message_item} onMouseEnter={handleHover} onMouseLeave={handleHover}>
-            <img src={ProfileImage} alt="profile img" />
+            {sender === user._id ?
+                <img src={user.avatar.filePath} alt="profile img" /> :
+                <img src={ProfileImage} alt="profile img" />
+            }
             <div className={st.message_body}>
                 <span>{friend ? friend.userName : 'Username'}</span>
                 <p>

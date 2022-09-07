@@ -1,25 +1,51 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 import st from '../styles/UserSettings.module.scss'
+import PicPhoto from '../assets/images/change-photo.svg'
 import ProfileImage from '../assets/images/profile-image.png'
-import { useState } from 'react'
+import { submitAvatar } from '../utils/userFetch'
+import SendImage from './SendImage'
 
-const UserSettings = ({ showSettings, setShowSettings }) => {
+const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [showInput, setShowInput] = useState(false);
     const [showEmail, setShowEmail] = useState(false);
+    const [editAvatar, setEditAvatar] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [avatar, setAvatar] = useState(null)
 
     const rootStyles = [st.settings_wrapper]
     if (showSettings) {
         rootStyles.push(st.active)
     }
 
+    useEffect(() => {
+        if(avatar !== null) {
+            submitAvatar(avatar, setAvatar, user._id)
+        }
+    }, [avatar])
+
     return (
         <div className={rootStyles.join(' ')} onClick={() => setShowSettings(false)}>
             <div className={st.settings_body} onClick={(e) => e.stopPropagation()}>
                 <div className={st.settings_header}>
-                    <img src={ProfileImage} alt="profile img" />
+                    <div className={st.header_avatar}>
+                        <SendImage setImage={setAvatar}>
+                            {editAvatar &&
+                                <div className={st.camera}
+                                    onMouseLeave={() => setEditAvatar(false)}
+                                    onMouseOver={() => setEditAvatar(true)}>
+                                    <img src={PicPhoto} alt="camera" />
+                                </div>
+                            }
+                            <img
+                                src={user.avatar.filePath}
+                                alt="profile img"
+                                onMouseLeave={() => setEditAvatar(false)}
+                                onMouseOver={() => setEditAvatar(true)} />
+                        </SendImage>
+                    </div>
                     <span>Jst.wrx</span>
                 </div>
+                <hr />
                 <div className={st.settings_main}>
                     <div className={st.main_item}>
                         <div>
