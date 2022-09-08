@@ -10,6 +10,7 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [showEmail, setShowEmail] = useState(false);
     const [editAvatar, setEditAvatar] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [hideEmail, setHideEmail] = useState(user.email)
     const [avatar, setAvatar] = useState(null)
 
     const rootStyles = [st.settings_wrapper]
@@ -18,10 +19,28 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
     }
 
     useEffect(() => {
-        if(avatar !== null) {
+        if (avatar !== null) {
             submitAvatar(avatar, setAvatar, user._id)
         }
-    }, [avatar])
+    }, [avatar, user._id])
+
+    useEffect(() => {
+        if (!showEmail) {
+            const email = user.email;
+            const split = email.split('');
+            const position = split.indexOf('@');
+            if (position === -1) {
+                return split
+            }
+            split.splice(0, position)
+            for (let i = 0; i < position; i++) {
+                split.unshift('*')
+            }
+            return setHideEmail(split)
+        } else {
+            return setHideEmail(user.email)
+        }
+    }, [showEmail, user.email])
 
     return (
         <div className={rootStyles.join(' ')} onClick={() => setShowSettings(false)}>
@@ -50,18 +69,18 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
                     <div className={st.main_item}>
                         <div>
                             <h3>Username</h3>
-                            <h4>Jst.wrx</h4>
+                            <h4>{user.userName}</h4>
                         </div>
                         <button>change</button>
                     </div>
                     <div className={st.main_item}>
                         <div>
                             <h3>Email</h3>
-                            <span>Jst.wrx@gmail.com</span>
+                            <span>{hideEmail}</span>
                             <button
                                 onClick={() => setShowEmail(!showEmail)}
                                 className={st.email_button}>
-                                {showEmail ? "hide" : "show"}
+                                {showEmail ? 'hide' : 'show'}
                             </button>
                         </div>
                         <button>change</button>
