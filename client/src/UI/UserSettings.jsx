@@ -2,8 +2,10 @@ import { React, useState, useEffect } from 'react'
 import st from '../styles/UserSettings.module.scss'
 import PicPhoto from '../assets/images/change-photo.svg'
 import ProfileImage from '../assets/images/profile-image.svg'
+import DoneIcon from '../assets/images/done-icon.svg'
 import { submitAvatar } from '../utils/userFetch'
 import SendImage from './SendImage'
+import UpdatePassword from './UpdatePassword'
 
 const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [showInput, setShowInput] = useState(false);
@@ -12,6 +14,7 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [inputValue, setInputValue] = useState('');
     const [hideEmail, setHideEmail] = useState(user.email)
     const [avatar, setAvatar] = useState(null)
+    const [completePassword, setCompletePassword] = useState(false)
 
     const rootStyles = [st.settings_wrapper]
     if (showSettings) {
@@ -42,8 +45,15 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
         }
     }, [showEmail, user.email])
 
+    const handleSettings = (e) => {
+        e.preventDefault();
+        setShowSettings(false)
+        setCompletePassword(false)
+        setShowInput(false)
+    }
+
     return (
-        <div className={rootStyles.join(' ')} onClick={() => setShowSettings(false)}>
+        <div className={rootStyles.join(' ')} onClick={handleSettings}>
             <div className={st.settings_body} onClick={(e) => e.stopPropagation()}>
                 <div className={st.settings_header}>
                     <div className={st.header_avatar}>
@@ -86,15 +96,18 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
                         <button>change</button>
                     </div>
                     <div className={st.main_item}>
-                        <h3>Password</h3>
-                        {
-                            showInput &&
-                            <input
-                                value={inputValue}
-                                type="password"
-                                onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="Enter new password" />
-                        }
+                        <div>
+                            <div className={st.item_done}>
+                                <h3>Password</h3>
+                                {completePassword && <img src={DoneIcon} alt="done" />}
+                            </div>
+                            {
+                                showInput &&
+                                <UpdatePassword
+                                    user={user}
+                                    setCompletePassword={setCompletePassword} />
+                            }
+                        </div>
                         <button type="button" onClick={() => setShowInput(!showInput)}>
                             change
                         </button>

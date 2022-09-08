@@ -8,5 +8,6 @@ router.get('/userdata/', controller.getUserData)
 router.post('/setavatar', fileMiddleware.single('image'), controller.setAvatar)
 router.post('/update', controller.updateUser)
 router.get('/:accountId', controller.getAccount)
+router.post('/update/password', controller.updatePassword)
 
 module.exports = router

@@ -1,0 +1,11 @@
+.inputs_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.error_body {
+    color: red;
+    font-size: 12px;
+    padding-bottom: 5px;
+}

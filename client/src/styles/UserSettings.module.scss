@@ -192,6 +192,18 @@ hr {
         }
     }
 
+    .item_done {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    img {
+        width: 15px;
+        height: 15px;
+        filter: invert(81%) sepia(20%) saturate(7147%) hue-rotate(67deg) brightness(115%) contrast(104%);
+    }
+
     input {
         width: 230px;
         height: 30px;
@@ -200,5 +212,6 @@ hr {
         border-radius: 10px;
         border: 1px solid #555454;
         animation: bar .5s linear;
+        margin-bottom: 5px;
     }
 }

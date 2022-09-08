@@ -1,10 +1,9 @@
-import React from 'react'
+import { React, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import st from '../styles/Form.module.scss'
 import { fetchLogin } from '../utils/authFetch'
-import { useEffect } from 'react'
 
 
 const Login = () => {
