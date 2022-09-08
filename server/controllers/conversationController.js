@@ -35,6 +35,16 @@ class conversationController {
             res.status(500).json(e)
         }
     }
+
+    async deleteConversation(req, res) {
+        const { conversationId } = req.body
+        try {
+            await Conversation.deleteOne({ _id: conversationId })
+            res.status(200).json({ success: true})
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    }
 }
 
 

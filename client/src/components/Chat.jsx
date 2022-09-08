@@ -94,7 +94,11 @@ const Chat = () => {
 
   return (
     <div className={st.chat_wrapper}>
-      <UserSettings user={user} showSettings={showSettings} setShowSettings={setShowSettings} />
+      <UserSettings
+        conversation={conversation}
+        user={user}
+        showSettings={showSettings}
+        setShowSettings={setShowSettings} />
       <div className={st.chat_contacts}>
         <div className={st.chat_header}>
           <div className={st.chat_logo}>
@@ -105,7 +109,7 @@ const Chat = () => {
             value={searchFriend}
             onChange={searchContacts}
             type="text"
-            placeholder="Search for contacts" />
+            placeholder="Search contacts" />
         </div>
         <div className={st.chat_body}>
           {friends && searchFriend !== '' &&

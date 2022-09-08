@@ -1,4 +1,5 @@
 .contact_item {
+    position: relative;
     display: flex;
     gap: 8px;
     width: 100%;
@@ -23,5 +24,23 @@
         font-size: 12px;
         line-height: 15px;
         color: #222222;
+    }
+
+    button {
+        position: absolute;
+        right: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+
+        img {
+            width: 20px;
+            height: 20px;
+            filter: invert(70%) sepia(0%) saturate(0%) hue-rotate(160deg) brightness(93%) contrast(92%);
+
+            &:hover {
+                filter: invert(80%) sepia(12%) saturate(18%) hue-rotate(336deg) brightness(106%) contrast(89%);
+            }
+        }
     }
 }

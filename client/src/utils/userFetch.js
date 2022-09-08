@@ -1,4 +1,5 @@
-import { API } from "./apiConsts"
+import { API } from './apiConsts'
+import { deleteConversation } from './contactsFetch'
 
 export const updateUser = async (avatarData, userId) => {
     try {
@@ -6,16 +7,16 @@ export const updateUser = async (avatarData, userId) => {
             _id: userId,
             avatarData: avatarData,
         })
-        .then(() => {
-            fetchAccount(userId)
-        })
+            .then(() => {
+                fetchAccount(userId)
+            })
     } catch (error) {
         console.log(error)
     }
 }
 
 export const updatePassword = async (userId, values, setServerError, setCompletePassword) => {
-    const { newPassword, password } =values
+    const { newPassword, password } = values
     try {
         await API.post('user/update/password', {
             userId: userId,
@@ -38,11 +39,11 @@ export const updateEmail = async (userId, value, setServerError, setCompleteEmai
             userId: userId,
             newEmail: newEmail,
         })
-        .then((res) => {
-            fetchAccount(userId)
-            setServerError('')
-            setCompleteEmail(true)
-        })
+            .then((res) => {
+                fetchAccount(userId)
+                setServerError('')
+                setCompleteEmail(true)
+            })
     } catch (error) {
         setServerError(error.response.data.message)
     }
@@ -55,22 +56,38 @@ export const updateUserName = async (userId, value, setServerError, setCompleteU
             userId: userId,
             newUserName: newUserName,
         })
-        .then((res) => {
-            fetchAccount(userId)
-            setServerError('')
-            setCompleteUserName(true)
-        })
+            .then((res) => {
+                fetchAccount(userId)
+                setServerError('')
+                setCompleteUserName(true)
+            })
     } catch (error) {
         setServerError(error.response.data.message)
+    }
+}
+
+export const deleteAccount = async (userId, navigate, conversation) => {
+    try {
+        await API.post('user/delete', {
+            userId: userId,
+        }).then((res) => {
+            deleteConversation(conversation)
+                .then(() => {
+                    localStorage.removeItem('chat-user')
+                    navigate('/login')
+                })
+        })
+    } catch (error) {
+
     }
 }
 
 export const fetchAccount = async (userId) => {
     try {
         await API.get(`user/${userId}`)
-        .then((res) => {
-            localStorage.setItem('chat-user', JSON.stringify(res.data));
-        })
+            .then((res) => {
+                localStorage.setItem('chat-user', JSON.stringify(res.data));
+            })
     } catch (error) {
         console.log(error)
     }

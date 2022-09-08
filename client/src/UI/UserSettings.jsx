@@ -1,15 +1,17 @@
 import { React, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import ReactTooltip from "react-tooltip";
 import st from '../styles/UserSettings.module.scss'
 import PicPhoto from '../assets/images/change-photo.svg'
 import ProfileImage from '../assets/images/profile-image.svg'
 import DoneIcon from '../assets/images/done-icon.svg'
-import { submitAvatar } from '../utils/userFetch'
+import { deleteAccount, submitAvatar } from '../utils/userFetch'
 import SendImage from './SendImage'
 import UpdatePassword from './UpdatePassword'
 import UpdateEmail from './UpdateEmail'
 import UpdateUserName from './UpdateUserName'
 
-const UserSettings = ({ showSettings, setShowSettings, user }) => {
+const UserSettings = ({ showSettings, setShowSettings, user, conversation }) => {
     const [showInput, setShowInput] = useState(false);
     const [showEmailInput, setShowEmailInput] = useState(false);
     const [showUserInput, setShowUserInput] = useState(false);
@@ -21,6 +23,8 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [completePassword, setCompletePassword] = useState(false)
     const [completeEmail, setCompleteEmail] = useState(false)
     const [completeUserName, setCompleteUserName] = useState(false)
+
+    const navigate = useNavigate();
 
     const rootStyles = [st.settings_wrapper]
     if (showSettings) {
@@ -150,7 +154,15 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
                     <hr />
                     <div>
                         <h4>Delete Account</h4>
-                        <button type="button">Delete Account</button>
+                        <button
+                            type="button"
+                            // onClick={() => deleteAccount(user._id, navigate, conversation)}>
+                            data-tip data-for="registerTip">
+                            Delete Account
+                        </button>
+                        <ReactTooltip id="registerTip" place="top" effect="solid">
+                            This button in progress
+                        </ReactTooltip>
                     </div>
                 </div>
             </div>

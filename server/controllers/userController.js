@@ -124,6 +124,16 @@ class userController {
         }
     }
 
+    async deleteAccount(req, res) {
+        const { userId } = req.body
+        try {
+            await User.deleteOne({ _id: userId })
+            res.status(200).json({ success: true })
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    }
+
     async setAvatar(req, res) {
         try {
             const avatar = new UserAvatar({

@@ -11,5 +11,6 @@ router.get('/:accountId', controller.getAccount)
 router.post('/update/password', controller.updatePassword)
 router.post('/update/email', controller.updateEmail)
 router.post('/update/name', controller.updateUsername)
+router.post('/delete', controller.deleteAccount)
 
 module.exports = router

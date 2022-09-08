@@ -21,8 +21,7 @@ const MessageItem = ({ message, user }) => {
 
     useEffect(() => {
         getUser(sender, setFriend)
-        // console.log(friend)
-    }, [message])
+    }, [message, sender])
 
 
     const handleHover = (e) => {

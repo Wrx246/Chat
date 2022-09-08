@@ -14,3 +14,13 @@ export const getNewConversation = async (firstUserId, secondUserId, setCurrentCh
         console.log(error)
     }
 }
+
+export const deleteConversation = async (conversation) => {
+    try {
+        await API.post('conversations/delete', {
+            conversationId: conversation._id
+        }).then((res) => console.log(res.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
