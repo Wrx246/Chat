@@ -48,6 +48,23 @@ export const updateEmail = async (userId, value, setServerError, setCompleteEmai
     }
 }
 
+export const updateUserName = async (userId, value, setServerError, setCompleteUserName) => {
+    const { newUserName } = value;
+    try {
+        await API.post('user/update/name', {
+            userId: userId,
+            newUserName: newUserName,
+        })
+        .then((res) => {
+            fetchAccount(userId)
+            setServerError('')
+            setCompleteUserName(true)
+        })
+    } catch (error) {
+        setServerError(error.response.data.message)
+    }
+}
+
 export const fetchAccount = async (userId) => {
     try {
         await API.get(`user/${userId}`)

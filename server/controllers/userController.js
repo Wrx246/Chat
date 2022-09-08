@@ -47,17 +47,21 @@ class userController {
 
     async updateUsername(req, res) {
         try {
-            const { userName } = req.body
+            const { userId, newUserName } = req.body
 
-            const candidate = await User.findOne({ userName })
+            const user = await User.findById({ _id: userId })
+
+            const candidate = await User.findOne({ userName: newUserName })
             if (candidate) {
                 return res.status(400).json({
-                    message: 'Пользователь с таким именем уже существует',
+                    message: `${newUserName} already used`,
                     status: false
                 })
             }
-
-
+            await User.updateOne(user, {
+                $set: { userName: newUserName }
+            })
+            res.status(200).json(user)
         } catch (e) {
             res.status(500).json(e)
         }

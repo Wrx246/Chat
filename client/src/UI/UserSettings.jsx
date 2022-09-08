@@ -7,10 +7,12 @@ import { submitAvatar } from '../utils/userFetch'
 import SendImage from './SendImage'
 import UpdatePassword from './UpdatePassword'
 import UpdateEmail from './UpdateEmail'
+import UpdateUserName from './UpdateUserName'
 
 const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [showInput, setShowInput] = useState(false);
     const [showEmailInput, setShowEmailInput] = useState(false);
+    const [showUserInput, setShowUserInput] = useState(false);
     const [showEmail, setShowEmail] = useState(false);
     const [editAvatar, setEditAvatar] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -18,6 +20,7 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [avatar, setAvatar] = useState(null)
     const [completePassword, setCompletePassword] = useState(false)
     const [completeEmail, setCompleteEmail] = useState(false)
+    const [completeUserName, setCompleteUserName] = useState(false)
 
     const rootStyles = [st.settings_wrapper]
     if (showSettings) {
@@ -53,7 +56,9 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
         setShowSettings(false)
         setCompletePassword(false)
         setCompleteEmail(false)
+        setCompleteUserName(false)
         setShowEmailInput(false)
+        setShowUserInput(false)
         setShowInput(false)
     }
 
@@ -77,16 +82,27 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
                                 onMouseOver={() => setEditAvatar(true)} />
                         </SendImage>
                     </div>
-                    <span>Jst.wrx</span>
+                    <span>{user.userName}</span>
                 </div>
                 <hr />
                 <div className={st.settings_main}>
                     <div className={st.main_item}>
                         <div>
-                            <h3>Username</h3>
-                            <h4>{user.userName}</h4>
+                            <div className={st.item_done}>
+                                <h3>UserName</h3>
+                                {completeUserName && <img src={DoneIcon} alt="done" />}
+                            </div>
+                            {showUserInput ?
+                                <UpdateUserName user={user} setCompleteUserName={setCompleteUserName} />
+                                :
+                                <h4>{user.userName}</h4>
+                            }
                         </div>
-                        <button>change</button>
+                        <button
+                            type="button"
+                            onClick={() => setShowUserInput(!showUserInput)}>
+                            change
+                        </button>
                     </div>
                     <div className={st.main_item}>
                         <div>
