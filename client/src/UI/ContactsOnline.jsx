@@ -1,9 +1,6 @@
-import React from 'react'
+import { React, useState } from 'react'
 import st from '../styles/ContactsOnline.module.scss'
-import ContactImage from '../assets/images/contact.png'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { getUserName } from '../utils/chatFetch'
+import ContactImage from '../assets/images/profile-image.svg'
 import { getNewConversation } from '../utils/contactsFetch'
 
 const ContactsOnline = ({ onlineUsers, currentId, setCurrentChat, searchFriend, friends }) => {
@@ -18,7 +15,7 @@ const ContactsOnline = ({ onlineUsers, currentId, setCurrentChat, searchFriend, 
         <div
             className={st.contact_item}
             onClick={() => getNewConversation(currentId, friends._id, setCurrentChat)}>
-            <img src={ContactImage} alt='contact image' />
+            <img src={ContactImage} alt="contact img" />
             {friends ? <span>{friends.userName}</span> : <span>Contact name</span>}
 
         </div>

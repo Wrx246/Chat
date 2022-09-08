@@ -7,8 +7,8 @@ class userController {
         const userName = req.query.userName;
         try {
             const user = userId
-                ? await User.findById(userId)
-                : await User.findOne({ userName: userName });
+                ? await User.findById(userId).populate('avatar')
+                : await User.findOne({ userName: userName }).populate('avatar');
             const { password, updatedAt, ...other } = user._doc;
             res.status(200).json(other);
         } catch (e) {
@@ -21,7 +21,7 @@ class userController {
         try {
             // const user = await User.findById(userId);
             // const { password, updatedAt, ...other } = user._doc;
-            const user = await User.findById(userId);
+            const user = await User.findById(userId).populate('avatar');
             res.status(200).json(user)
         } catch (e) {
             res.status(500).json(e)

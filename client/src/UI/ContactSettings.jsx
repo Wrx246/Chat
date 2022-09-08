@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { getUser } from '../utils/chatFetch'
 import SettingsLogo from '../assets/images/settings.svg'
 import LogoutLogo from '../assets/images/logout.svg'
-import ProfileImage from '../assets/images/profile-image.png'
+import ProfileImage from '../assets/images/profile-image.svg'
 import st from '../styles/ContactSettings.module.scss'
 
 
@@ -24,7 +24,7 @@ const ContactSettings = ({ user, showSettings, setShowSettings }) => {
     return (
         <div className={st.chat_bottom}>
             <div>
-                <img src={user.avatar.filePath} alt="profile img" />
+                <img src={user.avatar ? user.avatar.filePath : ProfileImage} alt="profile img" />
                 <span>{friend ? friend.userName : "Username"}</span>
             </div>
             <div>

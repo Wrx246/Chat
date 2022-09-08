@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import st from '../styles/UserSettings.module.scss'
 import PicPhoto from '../assets/images/change-photo.svg'
-import ProfileImage from '../assets/images/profile-image.png'
+import ProfileImage from '../assets/images/profile-image.svg'
 import { submitAvatar } from '../utils/userFetch'
 import SendImage from './SendImage'
 
@@ -37,7 +37,7 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
                                 </div>
                             }
                             <img
-                                src={user.avatar.filePath}
+                                src={user.avatar ? user.avatar.filePath : ProfileImage}
                                 alt="profile img"
                                 onMouseLeave={() => setEditAvatar(false)}
                                 onMouseOver={() => setEditAvatar(true)} />

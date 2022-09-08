@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import ProfileImage from '../assets/images/profile-image.png'
+import ProfileImage from '../assets/images/profile-image.svg'
 import Bin from '../assets/images/Bin.svg'
 import Pencil from '../assets/images/Pencil.svg'
 import Push from '../assets/images/push.svg'
@@ -21,6 +21,7 @@ const MessageItem = ({ message, user }) => {
 
     useEffect(() => {
         getUser(sender, setFriend)
+        // console.log(friend)
     }, [message])
 
 
@@ -42,7 +43,7 @@ const MessageItem = ({ message, user }) => {
     if (showDelete === true) {
         return (
             <div className={st.message_item}>
-                <img src={ProfileImage} alt="profile img" />
+                <img src={user.avatar ? user.avatar.filePath : ProfileImage} alt="profile img" />
                 <div className={st.message_body}>
                     <span>{friend ? friend.userName : 'Username'}</span>
                     <p>Message deleted!</p>
@@ -54,8 +55,8 @@ const MessageItem = ({ message, user }) => {
     return (
         <div className={st.message_item} onMouseEnter={handleHover} onMouseLeave={handleHover}>
             {sender === user._id ?
-                <img src={user.avatar.filePath} alt="profile img" /> :
-                <img src={ProfileImage} alt="profile img" />
+                <img src={user.avatar ? user.avatar.filePath : ProfileImage} alt="profile img" /> :
+                <img src={friend.avatar ? friend.avatar.filePath : ProfileImage} alt="profile img" />
             }
             <div className={st.message_body}>
                 <span>{friend ? friend.userName : 'Username'}</span>
