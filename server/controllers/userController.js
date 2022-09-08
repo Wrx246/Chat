@@ -65,15 +65,21 @@ class userController {
 
     async updateEmail(req, res) {
         try {
-            const { email } = req.body
-
-            const userEmail = await User.findOne({ email })
+            const { userId, newEmail } = req.body
+            
+            const user = await User.findById({ _id: userId })
+            
+            const userEmail = await User.findOne({ email: newEmail })
             if (userEmail) {
                 return res.status(400).json({
-                    message: 'Эта почта уже используется',
+                    message: 'This mail already used',
                     status: false
                 })
             }
+            await User.updateOne(user, {
+                $set: { email: newEmail }
+            })
+            res.status(200).json(user)
         } catch (e) {
             res.status(500).json(e)
         }

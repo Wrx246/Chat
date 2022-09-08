@@ -6,15 +6,18 @@ import DoneIcon from '../assets/images/done-icon.svg'
 import { submitAvatar } from '../utils/userFetch'
 import SendImage from './SendImage'
 import UpdatePassword from './UpdatePassword'
+import UpdateEmail from './UpdateEmail'
 
 const UserSettings = ({ showSettings, setShowSettings, user }) => {
     const [showInput, setShowInput] = useState(false);
+    const [showEmailInput, setShowEmailInput] = useState(false);
     const [showEmail, setShowEmail] = useState(false);
     const [editAvatar, setEditAvatar] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [hideEmail, setHideEmail] = useState(user.email)
     const [avatar, setAvatar] = useState(null)
     const [completePassword, setCompletePassword] = useState(false)
+    const [completeEmail, setCompleteEmail] = useState(false)
 
     const rootStyles = [st.settings_wrapper]
     if (showSettings) {
@@ -49,6 +52,8 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
         e.preventDefault();
         setShowSettings(false)
         setCompletePassword(false)
+        setCompleteEmail(false)
+        setShowEmailInput(false)
         setShowInput(false)
     }
 
@@ -85,15 +90,29 @@ const UserSettings = ({ showSettings, setShowSettings, user }) => {
                     </div>
                     <div className={st.main_item}>
                         <div>
-                            <h3>Email</h3>
-                            <span>{hideEmail}</span>
-                            <button
-                                onClick={() => setShowEmail(!showEmail)}
-                                className={st.email_button}>
-                                {showEmail ? 'hide' : 'show'}
-                            </button>
+                            <div className={st.item_done}>
+                                <h3>Email</h3>
+                                {completeEmail && <img src={DoneIcon} alt="done" />}
+                            </div>
+                            {showEmailInput ?
+                                <UpdateEmail user={user} setCompleteEmail={setCompleteEmail} />
+                                :
+                                <>
+                                    <span>{hideEmail}</span>
+                                    <button
+                                        onClick={() => setShowEmail(!showEmail)}
+                                        className={st.email_button}>
+                                        {showEmail ? 'hide' : 'show'}
+                                    </button>
+                                </>
+                            }
+
                         </div>
-                        <button>change</button>
+                        <button
+                            type="button"
+                            onClick={() => setShowEmailInput(!showEmailInput)}>
+                            change
+                        </button>
                     </div>
                     <div className={st.main_item}>
                         <div>

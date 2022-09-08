@@ -1,4 +1,5 @@
 import { API } from "./apiConsts"
+import { fetchAccount } from "./userFetch";
 
 
 export const fetchRegistration = async (values, navigate) => {
@@ -34,7 +35,9 @@ export const fetchLogin = async (values, navigate) => {
         console.log(data.message)
     }
     if(data.status === true) {
-        localStorage.setItem('chat-user', JSON.stringify(data.user));
-        navigate('/');
+        fetchAccount(data.user._id)
+        .then(() => {
+            navigate('/');
+        })        
     }
 }
