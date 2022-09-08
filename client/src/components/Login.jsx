@@ -4,15 +4,17 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import st from '../styles/Form.module.scss'
 import { fetchLogin } from '../utils/authFetch'
+import { useState } from 'react'
 
 
 const Login = () => {
   const navigate = useNavigate();
+  const [serverError, setServerError] = useState('')
 
 
 
   useEffect(() => {
-    if(localStorage.getItem('chat-user')) {
+    if (localStorage.getItem('chat-user')) {
       navigate('/')
     }
   }, [])
@@ -21,7 +23,7 @@ const Login = () => {
     userName: Yup.string()
       .required('Required'),
     password: Yup.string()
-      .required("This field is required"),
+      .required('This field is required'),
   })
 
   return (
@@ -32,26 +34,29 @@ const Login = () => {
           password: '',
         }}
         validationSchema={SignupSchema}
-        onSubmit={values => fetchLogin(values, navigate)}
+        onSubmit={values => fetchLogin(values, navigate, setServerError)}
       >
         {({ errors, touched, }) => (
           <Form>
             <h1>Login</h1>
             <div>
-              <Field name="userName" placeholder='Username' />
+              <Field name="userName" placeholder="Username" />
               {errors.userName && touched.userName ? (
                 <div className={st.registration_error}>{errors.userName}</div>
               ) : null}
             </div>
 
             <div>
-              <Field name="password" type="password" placeholder='Password' />
+              <Field name="password" type="password" placeholder="Password" />
               {errors.password && touched.password ?
                 <div className={st.registration_error}>{errors.password}</div> : null}
+              {serverError !== '' ?
+                <div className={st.registration_error}>{serverError}</div>
+                : null}
             </div>
 
             <button type="submit">Login in</button>
-            <span>No account? <Link to='/registration'>Sign up</Link></span>
+            <span>No account? <Link to="/registration">Sign up</Link></span>
           </Form>
         )}
       </Formik>

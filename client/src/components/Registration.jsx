@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -8,9 +8,10 @@ import { fetchRegistration } from '../utils/authFetch';
 
 const Registration = () => {
   const navigate = useNavigate();
+  const [serverError, setServerError] = useState('')
 
   useEffect(() => {
-    if(localStorage.getItem('chat-user')) {
+    if (localStorage.getItem('chat-user')) {
       navigate('/')
     }
   }, [])
@@ -24,12 +25,12 @@ const Registration = () => {
     password: Yup.string()
       .min(5, 'minimum 5 characters')
       .max(20, 'maximum 20 characters')
-      .required("This field is required"),
-    changepassword: Yup.string().when("password", {
+      .required('This field is required'),
+    changepassword: Yup.string().when('password', {
       is: val => (val && val.length > 0 ? true : false),
       then: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Both password need to be the same"
+        [Yup.ref('password')],
+        'Both password need to be the same'
       )
     })
   })
@@ -45,38 +46,41 @@ const Registration = () => {
           changepassword: '',
         }}
         validationSchema={SignupSchema}
-        onSubmit={values => fetchRegistration(values, navigate)}
+        onSubmit={values => fetchRegistration(values, navigate, setServerError)}
       >
         {({ errors, touched, }) => (
           <Form>
             <h1>Registration</h1>
             <div>
-              <Field name="userName" placeholder='Username' />
+              <Field name="userName" placeholder="Username" />
               {errors.userName && touched.userName ? (
                 <div className={st.registration_error}>{errors.userName}</div>
               ) : null}
             </div>
 
             <div>
-              <Field name="email" type="email" placeholder='Email' />
+              <Field name="email" type="email" placeholder="Email" />
               {errors.email && touched.email ?
                 <div className={st.registration_error}>{errors.email}</div> : null}
             </div>
 
             <div>
-              <Field name="password" type="password" placeholder='Password' />
+              <Field name="password" type="password" placeholder="Password" />
               {errors.password && touched.password ?
                 <div className={st.registration_error}>{errors.password}</div> : null}
             </div>
 
             <div>
-              <Field name="changepassword" type="password" placeholder='Confirm password' />
+              <Field name="changepassword" type="password" placeholder="Confirm password" />
               {errors.changepassword && touched.changepassword ?
                 <div className={st.registration_error}>{errors.changepassword}</div> : null}
+              {serverError !== '' ?
+                <div className={st.registration_error}>{serverError}</div>
+                : null}
             </div>
 
             <button type="submit">Create account</button>
-            <span>Already have account? <Link to='/login'>Login</Link></span>
+            <span>Already have account? <Link to="/login">Login</Link></span>
           </Form>
         )}
       </Formik>

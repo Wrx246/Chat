@@ -17,7 +17,7 @@ class authController {
             const candidate = await User.findOne({ userName })
             if (candidate) {
                 return res.status(400).json({
-                    message: 'Пользователь с таким именем уже существует',
+                    message: `User ${userName} already exist`,
                     status: false
                 })
             }
@@ -25,7 +25,7 @@ class authController {
             const userEmail = await User.findOne({ email })
             if (userEmail) {
                 return res.status(400).json({
-                    message: 'Эта почта уже используется',
+                    message: 'This mail already used',
                     status: false
                 })
             }
@@ -34,7 +34,7 @@ class authController {
             const user = new User({ userName, password: hashPassword, email })
 
             await user.save()
-            return res.json({ message: 'Пользователь зарегистрирован', user, status: true })
+            return res.json({ message: 'User registered', user, status: true })
         } catch (e) {
             console.log("Error:", e);
             res.status(400).json(e)
@@ -46,14 +46,14 @@ class authController {
             const user = await User.findOne({ userName })
             if (!user) {
                 return res.status(400).json({
-                    message: `Пользователь с ${userName} не найден`,
+                    message: `User ${userName} not found`,
                     status: false
                 })
             }
             const validPassword = bcrypt.compareSync(password, user.password)
             if (!validPassword) {
                 return res.status(400).json({
-                    message: `Неверный пароль`,
+                    message: 'Wrong password',
                     status: false
                 })
             }
