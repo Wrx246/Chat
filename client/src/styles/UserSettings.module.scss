@@ -17,6 +17,18 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+
+    @media screen and (max-width: 800px) and (min-width: 500px) {
+        min-width: 400px;
+    }
+
+    @media screen and (max-width: 500px) {
+        min-width: 200px;
+    }
+
+    @media screen and (max-width: 300px) {
+        gap: 15px;
+    }
 }
 
 .settings_wrapper.active {
@@ -88,6 +100,10 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 25px;
+
+    @media screen and (max-width: 300px) {
+        gap: 15px;
+    }
     
 
     h4 {
@@ -139,6 +155,7 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
     position: relative;
 
     .email_button {
@@ -213,5 +230,75 @@ hr {
         border: 1px solid #555454;
         animation: bar .5s linear;
         margin-bottom: 5px;
+    }
+
+    @media screen and (max-width: 800px) and (min-width: 500px) {
+        @keyframes bar {
+            0% {
+                width: 50px;
+            }
+        
+            50% {
+                width: 150px;
+            }
+        
+            90% {
+                width: 190px;
+            }
+        }
+
+        input {
+            width: 200px;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        @keyframes bar {
+            0% {
+                width: 30px;
+            }
+        
+            50% {
+                width: 100px;
+            }
+        
+            90% {
+                width: 170px;
+            }
+        }
+
+        button {
+            padding: 0.7rem 0.7rem;
+            font-size: 1rem;
+        }
+
+        input {
+            width: 180px;
+        }
+    }
+
+    @media screen and (max-width: 300px) {
+        @keyframes bar {
+            0% {
+                width: 30px;
+            }
+        
+            50% {
+                width: 100px;
+            }
+        
+            90% {
+                width: 150px;
+            }
+        }
+
+        button {
+            padding: 0.5rem 0.5rem;
+            font-size: 1rem;
+        }
+
+        input {
+            width: 150px;
+        }
     }
 }

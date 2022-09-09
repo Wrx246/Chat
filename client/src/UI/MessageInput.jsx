@@ -62,6 +62,24 @@ const MessageInput = (
                     <button type="button">
                         <img src={VoiceLogo} alt="voice img" />
                     </button>
+                    <div className={st.message_upload}>
+                        <SendImage setImage={setImage}>
+                            <button>
+                                <img src={Upload} alt="upload" />
+                            </button>
+                        </SendImage>
+                        {image &&
+                            <>
+                                <div className={st.upload_body}>
+                                    {image.name}
+                                </div>
+                                <button
+                                    className={st.upload_btn}
+                                    type="button"
+                                    onClick={() => setImage(null)}>x</button>
+                            </>
+                        }
+                    </div>
                 </div>
                 <div className={st.input_body}>
                     <input

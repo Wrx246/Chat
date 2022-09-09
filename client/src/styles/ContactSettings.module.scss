@@ -53,4 +53,34 @@
             }
         }
     }
+
+    @media screen and (max-width: 800px) and (min-width: 500px) {
+        padding: 16px 16px;
+
+        span {
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 22px;
+            color: #222222;
+        }
+
+        div {
+            gap: 5px;
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        button {
+            height: 20px;
+            width: 20px;
+    
+            img {
+                height: 10px;
+                width: 10px;
+            }
+        }
+    }
 }

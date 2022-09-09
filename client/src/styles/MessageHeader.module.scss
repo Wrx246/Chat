@@ -28,4 +28,13 @@
         line-height: 22px;
         font-weight: 400;
     }
+
+    @media screen and (max-width: 800px) and (min-width: 500px) {
+        max-width: 10px;
+    }
+
+    @media screen and (max-width: 500px) {
+        max-width: 10px;
+        margin-left: 30px;
+    }
 }

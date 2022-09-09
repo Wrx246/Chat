@@ -7,6 +7,7 @@ import { useDebounce } from '../hooks/useDebounce'
 import st from '../styles/Chat.module.scss'
 import Logo from '../assets/images/logo.svg'
 import Search from '../assets/images/Search.svg'
+import BackArrow from '../assets/images/back-arrow.svg'
 import ContactItem from '../UI/ContactItem'
 import ContactSettings from '../UI/ContactSettings'
 import ContactSlider from '../UI/ContactSlider'
@@ -31,12 +32,33 @@ const Chat = () => {
   const [friends, setFriends] = useState({})
   const [showSearch, setShowSearch] = useState(false)
 
+  const [closeChat, setCloseChat] = useState(false)
+
   const [imageData, setImageData] = useState(null)
 
   const [showSettings, setShowSettings] = useState(false)
 
   const socket = useRef()
   const scrollRef = useRef();
+
+  const messageStyles = [st.message_wrapper]
+  const contactsStyles = [st.chat_contacts]
+
+  useEffect(() => {
+    if (closeChat && currentChat === null) {
+      messageStyles.pop()
+      contactsStyles.push(st.chat_contacts)
+    } else {
+      contactsStyles.pop()
+      messageStyles.push(st.message_wrapper)
+    }
+  }, [messageStyles, contactsStyles, closeChat, currentChat])
+
+  const handleCloseChat = (e) => {
+    e.preventDefault()
+    setCloseChat(true)
+    setCurrentChat(null)
+  }
 
   const debounceSearch = useDebounce(getUserName, 500);
 
@@ -99,7 +121,8 @@ const Chat = () => {
         user={user}
         showSettings={showSettings}
         setShowSettings={setShowSettings} />
-      <div className={st.chat_contacts}>
+      {/* <div className={st.chat_contacts}> */}
+      <div className={contactsStyles.join(' ')}>
         <div className={st.chat_header}>
           <div className={st.chat_logo}>
             <img src={Logo} alt="logo img" />
@@ -155,10 +178,16 @@ const Chat = () => {
         </div>
         <ContactSettings user={user} showSettings={showSettings} setShowSettings={setShowSettings} />
       </div>
-      <div className={st.message_wrapper}>
+      {/* <div className={st.message_wrapper}> */}
+      <div className={messageStyles.join(' ')}>
         {currentChat ?
           <>
             <div className={st.message_header}>
+              <img
+                className={st.message_back}
+                onClick={handleCloseChat}
+                src={BackArrow}
+                alt="back arrow" />
               <MessageHeader currentChat={currentChat} user={user} />
               <div className={st.header_input}>
                 <button type="button" onClick={() => setShowSearch(!showSearch)}>

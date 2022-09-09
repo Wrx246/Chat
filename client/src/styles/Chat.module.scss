@@ -19,8 +19,13 @@
         grid-template-columns: 30% 70%;
     }
 
-    @media screen and (max-width: 800px) and (min-width: 400px) {
+    @media screen and (max-width: 800px) and (min-width: 500px) {
         grid-template-columns: 35% 65%;
+    }
+
+    @media screen and (max-width: 500px) {
+        display: block;
+        padding: 0;
     }
 }
 
@@ -32,6 +37,12 @@
     border: 1px solid #E5EDF2;
     border-radius: 8px;
 
+    @media screen and (max-width: 500px) {
+        // display: none;
+        height: 100vh;
+        border-radius: 0;
+    }
+
     .chat_header {
         height: 126px;
         width: 100%;
@@ -41,6 +52,10 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 23px 24px;
+
+        @media screen and (max-width: 500px) {
+            border-radius: 0;
+        }
 
         .chat_logo {
             display: flex;
@@ -110,6 +125,19 @@
     background: #FFFFFF;
     border: 1px solid #E5EDF2;
     border-radius: 8px;
+
+    @media screen and (max-width: 500px) {
+        // display: none;
+        height: 100vh;
+        border-radius: 0;
+    }
+}
+
+.mobile {
+    display: none;
+    @media screen and (max-width: 500px) {
+        display: block;
+    }
 }
 
 .chat_preloader {
@@ -124,13 +152,25 @@
         font-size: 35px;
         color: #C7D6F6;
     }
+
+    // @media screen and (max-width: 500px) {
+    //     display: none;
+    // }
 }
 
 @keyframes bar {
-    0% { width: 50px; }
-    50% { width: 170px; }
-    90% { width: 250px; }
-   }
+    0% {
+        width: 50px;
+    }
+
+    50% {
+        width: 170px;
+    }
+
+    90% {
+        width: 250px;
+    }
+}
 
 .message_header {
     width: 100%;
@@ -141,6 +181,22 @@
     justify-content: space-between;
     align-items: center;
     padding: 24px;
+    position: relative;
+
+    .message_back {
+        display: none;
+    }
+
+    @media screen and (max-width: 500px) {
+        border-radius: 0;
+
+        .message_back {
+            display: block;
+            position: absolute;
+            width: 15px;
+            height: 15px;
+        }
+    }
 
     .header_input {
         position: relative;
@@ -179,6 +235,27 @@
             border-radius: 999px;
             border: none;
             animation: bar .5s linear;
+        }
+
+        @media screen and (max-width: 500px) {
+            @keyframes bar {
+                0% {
+                    width: 50px;
+                }
+
+                50% {
+                    width: 150px;
+                }
+
+                90% {
+                    width: 200px;
+                }
+            }
+
+            input {
+                width: 200px;
+                height: 40px;
+            }
         }
     }
 }

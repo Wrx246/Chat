@@ -5,13 +5,14 @@
     border: 1px solid #E5EDF2;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    // display: grid;
-    // grid-template-columns: 20% 80%;
-    // grid-template-rows: 50% 50%;
+
+    @media screen and (max-width: 500px) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 
 
     .input_voice {
-        // margin-top: 55px;
         display: flex;
         column-gap: 8px;
         padding: 0px 12px;
@@ -47,9 +48,14 @@
         margin: 10px;
         gap: 8px;
 
+        @media screen and (max-width: 500px) {
+            display: none;
+        }
+
         .upload_body {
             font-size: 14px;
         }
+
         .upload_btn {
             background: transparent;
             border: none;
@@ -63,6 +69,23 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
+        .message_upload {
+            display: none;
+        }
+
+        @media screen and (max-width: 500px) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 12px;
+            margin: 12px 0px;
+
+            .message_upload {
+                display: block;
+            }
+        }
 
         .input_body {
             position: relative;
