@@ -1,8 +1,8 @@
 import { React, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
-import st from '../styles/UpdateData.module.scss'
-import { updateUserName } from '../utils/userFetch'
+import st from '../../styles/UpdateData.module.scss'
+import { updateUserName } from '../../utils/userFetch'
 
 
 const UpdateUserName = ({ user, setCompleteUserName }) => {

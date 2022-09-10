@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import ProfileImage from '../assets/images/profile-image.svg'
-import Bin from '../assets/images/Bin.svg'
-import Pencil from '../assets/images/Pencil.svg'
-import Push from '../assets/images/push.svg'
-import Reply from '../assets/images/Reply.svg'
-import Smile from '../assets/images/smile.svg'
-import st from '../styles/MessageItem.module.scss'
-import { deleteMessage, getUser, updateMessage } from '../utils/chatFetch'
+import ProfileImage from '../../assets/images/profile-image.svg'
+import Bin from '../../assets/images/Bin.svg'
+import Pencil from '../../assets/images/Pencil.svg'
+import Push from '../../assets/images/push.svg'
+import Reply from '../../assets/images/Reply.svg'
+import Smile from '../../assets/images/smile.svg'
+import st from '../../styles/message/MessageItem.module.scss'
+import { deleteMessage, getUser, updateMessage } from '../../utils/chatFetch'
 
 const MessageItem = ({ message, user }) => {
     const [friend, setFriend] = useState({})

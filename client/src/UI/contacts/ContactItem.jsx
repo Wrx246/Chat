@@ -1,11 +1,11 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import ContactImage from '../assets/images/profile-image.svg'
-import Close from '../assets/images/close.svg'
-import st from '../styles/ContactItem.module.scss'
-import { getUser } from '../utils/chatFetch'
-import { deleteConversation } from '../utils/contactsFetch'
+import ContactImage from '../../assets/images/profile-image.svg'
+import Close from '../../assets/images/close.svg'
+import st from '../../styles/contacts/ContactItem.module.scss'
+import { getUser } from '../../utils/chatFetch'
+import { deleteConversation } from '../../utils/contactsFetch'
 
 const ContactItem = ({conversation, user}) => {
     const [friend, setFriend] = useState({})

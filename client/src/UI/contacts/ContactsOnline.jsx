@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
-import st from '../styles/ContactsOnline.module.scss'
-import ContactImage from '../assets/images/profile-image.svg'
-import { getNewConversation } from '../utils/contactsFetch'
+import st from '../../styles/contacts/ContactsOnline.module.scss'
+import ContactImage from '../../assets/images/profile-image.svg'
+import { getNewConversation } from '../../utils/contactsFetch'
 
 const ContactsOnline = ({ onlineUsers, currentId, setCurrentChat, searchFriend, friends }) => {
     const [onlineFriends, setOnlineFriends] = useState([])

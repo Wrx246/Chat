@@ -7,9 +7,9 @@ import ProfileImage from '../assets/images/profile-image.svg'
 import DoneIcon from '../assets/images/done-icon.svg'
 import { deleteAccount, submitAvatar } from '../utils/userFetch'
 import SendImage from './SendImage'
-import UpdatePassword from './UpdatePassword'
-import UpdateEmail from './UpdateEmail'
-import UpdateUserName from './UpdateUserName'
+import UpdatePassword from './forms/UpdatePassword'
+import UpdateEmail from './forms/UpdateEmail'
+import UpdateUserName from './forms/UpdateUserName'
 
 const UserSettings = ({ showSettings, setShowSettings, user, conversation }) => {
     const [showInput, setShowInput] = useState(false);

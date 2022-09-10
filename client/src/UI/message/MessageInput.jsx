@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import SubmitLogo from '../assets/images/send.svg'
-import VoiceLogo from '../assets/images/voice.svg'
-import AttachLogo from '../assets/images/attach.svg'
-import Upload from '../assets/images/upload.svg'
-import st from '../styles/MessageInput.module.scss'
-import { submitImage, submitMessage } from '../utils/chatFetch'
-import SendImage from './SendImage'
+import SubmitLogo from '../../assets/images/send.svg'
+import VoiceLogo from '../../assets/images/voice.svg'
+import AttachLogo from '../../assets/images/attach.svg'
+import Upload from '../../assets/images/upload.svg'
+import st from '../../styles/message/MessageInput.module.scss'
+import { submitImage, submitMessage } from '../../utils/chatFetch'
+import SendImage from '../SendImage'
 
 const MessageInput = (
     { newMessage,
@@ -23,12 +23,14 @@ const MessageInput = (
         if (image === null) {
             submitMessage(
                 user, newMessage, currentChat,
-                setMessages, messages, setNewMessage, socket, image, setImage, imageData, setImageData
+                setMessages, messages, setNewMessage, 
+                socket, image, setImage, imageData, setImageData
             )
         } else if (image !== null) {
             submitImage(
                 user, newMessage, currentChat,
-                setMessages, messages, setNewMessage, socket, image, setImage, imageData, setImageData
+                setMessages, messages, setNewMessage, 
+                socket, image, setImage, imageData, setImageData
             )
         }
     }

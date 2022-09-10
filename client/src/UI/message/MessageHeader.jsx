@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import ProfileImage from '../assets/images/profile-image.svg'
-import st from '../styles/MessageHeader.module.scss'
-import { getUser, getUserData } from '../utils/chatFetch'
+import ProfileImage from '../../assets/images/profile-image.svg'
+import st from '../../styles/message/MessageHeader.module.scss'
+import { getUserData } from '../../utils/chatFetch'
 
 const MessageHeader = ({ user, currentChat }) => {
     const [friend, setFriend] = useState({})

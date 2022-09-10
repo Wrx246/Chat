@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { useState } from 'react';
 import st from '../styles/SendImage.module.scss'
 
 const SendImage = ({children, setImage}) => {
