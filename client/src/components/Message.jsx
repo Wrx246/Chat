@@ -34,7 +34,7 @@ const Message = ({
                                 return (
                                     <div key={index} ref={scrollRef}>
                                         <MessageItem
-                                            message={message} user={user} />
+                                            message={message} user={user} socket={socket} />
                                     </div>
                                 )
                             })

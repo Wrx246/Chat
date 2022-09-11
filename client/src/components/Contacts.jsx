@@ -64,6 +64,11 @@ const Contacts = ({
                         })}
                     </>
                 }
+                < hr />
+                <ContactSlider
+                    text="Groups"
+                    showContacts={showContacts}
+                    setShowContacts={setShowContacts} />
             </div>
             <ContactSettings user={user} showSettings={showSettings} setShowSettings={setShowSettings} />
         </div>

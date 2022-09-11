@@ -25,7 +25,7 @@ const ContactSettings = ({ user, showSettings, setShowSettings }) => {
         <div className={st.chat_bottom}>
             <div>
                 <img src={user.avatar ? user.avatar.filePath : ProfileImage} alt="profile img" />
-                <span>{friend ? friend.userName : "Username"}</span>
+                <span>{friend ? friend.userName : 'Username'}</span>
             </div>
             <div>
                 <button type="button" onClick={() => setShowSettings(!showSettings)}>

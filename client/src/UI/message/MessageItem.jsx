@@ -10,18 +10,27 @@ import Smile from '../../assets/images/smile.svg'
 import st from '../../styles/message/MessageItem.module.scss'
 import { deleteMessage, getUser, updateMessage } from '../../utils/chatFetch'
 
-const MessageItem = ({ message, user }) => {
+const MessageItem = ({ message, user, socket }) => {
     const [friend, setFriend] = useState({})
     const [showSettings, setShowSettings] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const [editMessage, setEditMessage] = useState(false)
+    const [userOnline, setUserOnline] = useState(null)
 
     const { _id, text, sender, messageImage } = message;
     const [changeMessage, setChangeMessage] = useState(text)
 
     useEffect(() => {
+        socket.current.on('getUsers', (users) => {
+            setUserOnline(
+                users.filter((users) => users['userId'] !== user._id)
+            )
+        })
+    }, [socket, user, userOnline])
+
+    useEffect(() => {
         getUser(sender, setFriend)
-    }, [message, sender])
+    }, [sender])
 
 
     const handleHover = (e) => {
@@ -58,7 +67,9 @@ const MessageItem = ({ message, user }) => {
                 <img src={friend.avatar ? friend.avatar.filePath : ProfileImage} alt="profile img" />
             }
             <div className={st.message_body}>
-                <span>{friend ? friend.userName : 'Username'}</span>
+                <span>
+                    {sender === user._id ? user.userName : friend.userName}
+                </span>
                 <p>
                     {editMessage ?
                         <input
