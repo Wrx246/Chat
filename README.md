@@ -5,7 +5,7 @@
 ![app image](./client/src/assets/images/chatpage.png)
 
 
-## Account setup
+## Account setup and settings
 ![settings image](./client/src/assets/images/chat_settings.png)
 
 
